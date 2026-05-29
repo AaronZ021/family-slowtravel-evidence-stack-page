@@ -34,12 +34,20 @@ table { border-collapse:collapse; width:100%; margin:16px 0; font-size:14px; bac
 th,td { padding:12px 14px; text-align:left; vertical-align:top; border-bottom:1px solid var(--border); }
 th { background:var(--code-bg); font-size:13px; font-weight:650; }
 tr:nth-child(even) td { background:var(--stripe); }
+td.level { width:110px; font-weight:700; }
+td.dimension { width:150px; font-weight:700; }
+td.area { width:150px; font-weight:700; }
 a { color:var(--accent); text-decoration:none; }
 a:hover { text-decoration:underline; }
 .callout { background:#fff7ed; border:1px solid #fed7aa; padding:12px 18px; border-radius:8px; margin:16px 0; }
+.toc { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 22px; }
+.toc a { display:inline-flex; padding:6px 10px; border-radius:8px; border:1px solid var(--border); background:#fff; font-size:13px; font-weight:650; }
 .source-badge { display:inline-flex; align-items:center; min-height:24px; padding:2px 7px; border-radius:6px; background:#eef2ff; color:#3730a3; text-decoration:none; font-size:12px; font-weight:650; margin:2px 4px 2px 0; white-space:nowrap; }
 .source-badge:hover { outline:2px solid #818cf8; outline-offset:1px; text-decoration:none; }
 .badges { margin-top:6px; display:flex; flex-wrap:wrap; gap:4px; }
+.compact p { margin:0 0 8px; }
+.wide-table { overflow-x:auto; margin:16px 0; }
+.wide-table table { min-width:1120px; margin:0; }
 .cell-label { margin:10px 0 4px; font-size:12px; font-weight:750; color:var(--muted); }
 .cell-block p { margin:0 0 8px; }
 .meta-row { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 10px; }
@@ -128,6 +136,61 @@ def source_cards(used, sources):
     return '<div class="source-grid">' + "\n".join(cards) + "</div>"
 
 
+def optional_csv(path):
+    return read_csv(path) if path.exists() else []
+
+
+def render_spatial_framework(sources, used):
+    rows = optional_csv(ROOT / "reports/spatial_dimension_framework.csv")
+    if not rows:
+        return ""
+    out = [
+        '<h2 id="spatial-framework">空间评估口径：哪些看城市，哪些看片区</h2>',
+        '<div class="callout">判断规则：法律、制度、季节和城市级医疗网络先按城市看；每天反复发生、并且 1km/5km 半径会改变体验的事项，必须按候选片区看。社区反馈不单独替代事实，只贴回对应维度解释真实摩擦。</div>',
+        '<div class="wide-table"><table><thead><tr><th>维度</th><th>主评估层级</th><th>城市级要回答的问题</th><th>片区级要回答的问题</th><th>为什么这样拆</th><th>数据源口径</th><th>页面处理</th></tr></thead><tbody>',
+    ]
+    for r in rows:
+        out.append("<tr>")
+        out.append(f"<td class=\"dimension\">{esc(r['dimension'])}</td>")
+        out.append(f"<td class=\"level\">{esc(r['primary_level'])}</td>")
+        out.append(f"<td>{esc(r['city_level_question'])}</td>")
+        out.append(f"<td>{esc(r['area_level_question'])}</td>")
+        out.append(f"<td>{esc(r['why'])}</td>")
+        out.append(f"<td>{esc(r['data_sources'])}{badges(r['source_ids'], sources, used)}</td>")
+        out.append(f"<td>{esc(r['page_action'])}</td>")
+        out.append("</tr>")
+    out.append("</tbody></table></div>")
+    return "".join(out)
+
+
+def render_area_assessment(sources, used):
+    rows = optional_csv(ROOT / "reports/area_life_radius_assessment.csv")
+    if not rows:
+        return ""
+    out = [
+        '<h2 id="area-radius">候选片区生活半径横向比较</h2>',
+        '<p class="page-sub">这张表只处理片区级问题：住在这个片区附近，四口之家每天是否能低摩擦完成儿童活动、买菜药房洗衣、医疗到达和出行。城市级签证、烟季、整体安全不在这里重复判断。</p>',
+        '<div class="wide-table"><table><thead><tr><th>城市</th><th>片区</th><th>片区角色</th><th>1km 事实</th><th>5km 事实</th><th>住房含义</th><th>儿童活动含义</th><th>室内 fallback</th><th>医疗/日常服务</th><th>交通含义</th><th>当前可读出的意思</th><th>缺口 / 下一步</th></tr></thead><tbody>',
+    ]
+    for r in rows:
+        out.append("<tr>")
+        out.append(f"<td>{esc(r['city'])}</td>")
+        out.append(f"<td class=\"area\">{esc(r['area'])}</td>")
+        out.append(f"<td>{esc(r['area_role'])}</td>")
+        out.append(f"<td>{esc(r['one_km_fact'])}</td>")
+        out.append(f"<td>{esc(r['five_km_fact'])}</td>")
+        out.append(f"<td>{esc(r['housing_message'])}</td>")
+        out.append(f"<td>{esc(r['child_activity_message'])}</td>")
+        out.append(f"<td>{esc(r['indoor_fallback_message'])}</td>")
+        out.append(f"<td>{esc(r['healthcare_daily_services_message'])}</td>")
+        out.append(f"<td>{esc(r['mobility_message'])}</td>")
+        out.append(f"<td><div class=\"compact\"><p>{esc(r['main_interpretation'])}</p><div class=\"meta-row\"><span class=\"meta-pill\">置信度：{esc(r['confidence'])}</span></div>{badges(r['evidence_ids'], sources, used)}</div></td>")
+        out.append(f"<td><div class=\"cell-label\">缺口</div><p>{esc(r['gaps'])}</p><div class=\"cell-label\">下一步</div><p>{esc(r['next_verification'])}</p></td>")
+        out.append("</tr>")
+    out.append("</tbody></table></div>")
+    return "".join(out)
+
+
 def main():
     sources = source_map()
     rows = read_csv(ROOT / "reports/indicator_evidence_stack.csv")
@@ -137,9 +200,13 @@ def main():
     used = set()
     body = [
         '<h1 class="page-title">指标证据栈</h1>',
-        '<p class="page-sub">每个小格子先写该城市在该维度的事实含义，再列官方/统计、平台/地图、社区反馈三类证据。证据 ID 是支撑，不替代文字判断。</p>',
-        '<div class="callout"><strong>读法</strong>：这里不做城市总评。每行只处理一个维度；每个城市的小格子说明当前证据能支撑什么、哪里不足、下一步补什么。</div>',
+        '<p class="page-sub">本页先拆清楚空间口径：哪些维度只能按城市整体判断，哪些必须落到 Campo、Estrela、Nimman、Hang Dong 等候选片区。后面的证据栈只作为下钻材料。</p>',
+        '<nav class="toc"><a href="#spatial-framework">空间评估口径</a><a href="#area-radius">片区生活半径</a><a href="#evidence-stack">维度证据栈</a><a href="#sources">来源索引</a></nav>',
+        '<div class="callout"><strong>读法</strong>：这里不做城市总评。城市级维度回答“能不能去、什么季节有硬约束”；片区级维度回答“住在哪里，日常是否真的跑得起来”。</div>',
     ]
+    body.append(render_spatial_framework(sources, used))
+    body.append(render_area_assessment(sources, used))
+    body.append('<h2 id="evidence-stack">维度证据栈</h2>')
     for layer, dims in by_layer.items():
         body.append(f"<h2>{esc(layer)}</h2>")
         body.append("<table><thead><tr><th>维度</th><th>里斯本</th><th>清迈</th></tr></thead><tbody>")
@@ -150,7 +217,7 @@ def main():
             body.append(f"<td>{cell(cities['清迈'], sources, used) if '清迈' in cities else ''}</td>")
             body.append("</tr>")
         body.append("</tbody></table>")
-    body.append("<h2>本页来源索引</h2>")
+    body.append('<h2 id="sources">本页来源索引</h2>')
     body.append(source_cards(used, sources))
     html_text = f"""<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>指标证据栈 · 家庭慢旅研究</title><style>{CSS}</style></head><body><header><div class="inner"><h1>里斯本 vs 清迈 · 指标证据栈</h1></div></header><main>{''.join(body)}</main><footer>独立页面 · source IDs 对应 data/sources/sources.csv</footer></body></html>"""
     (DOCS / "index.html").write_text(html_text, encoding="utf-8")
