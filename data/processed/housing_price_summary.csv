@@ -1,0 +1,5 @@
+city,currency,count,min,max,mean,median
+lisbon,EUR,6,900,2943,2099.8,2363.0
+chiang_mai,THB,10,6500,57500,20700.0,16500.0
+lisbon_family_relevant_visible,EUR,6,900,2943,2099.8,2363.0
+chiang_mai_family_relevant_visible,THB,4,11500,57500,31875.0,29250.0

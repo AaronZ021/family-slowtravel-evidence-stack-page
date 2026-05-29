@@ -1,0 +1,17 @@
+city,sample,monthly_price,currency,source_ids,notes
+lisbon,Belém furnished T2 search low-end signal,900,EUR,S-LIS-040,low-end search signal; not enough to prove family suitability
+lisbon,Campo de Ourique Flatio T2,1180,EUR,LISH_01,dynamic snippet; capacity uncertain
+lisbon,Campo de Ourique Flatio 2BR child-suitable,2636,EUR,LISH_02,dynamic snippet
+lisbon,Parque das Nações Flatio monthly,2943,EUR,LISH_04,dynamic snippet
+lisbon,Lisbon serviced apartment daily from 95 EUR,2850,EUR,LISH_05,95 EUR/day converted to 30-day equivalent
+lisbon,Campolide Flatio 2BR,2090,EUR,LISH_10,dynamic snippet
+chiang_mai,D Vieng Santitham studio,12000,THB,S-CMI-021,not family-sized
+chiang_mai,D Vieng Santitham 1BR,15000,THB,S-CMI-021,not ideal for 4 people
+chiang_mai,D Vieng Santitham 2BR,22000,THB,S-CMI-021,family-relevant compact 2BR
+chiang_mai,Nimman near One Nimman 1BR median,20000,THB,S-CMI-025,not ideal for 4 people
+chiang_mai,Nimman near One Nimman 2BR median,36500,THB,S-CMI-025,family-relevant central 2BR
+chiang_mai,Old City The Pacific Cool Chic,6500,THB,S-CMI-020,studio/1BR
+chiang_mai,Old City Smith Residence,8000,THB,S-CMI-020,1BR
+chiang_mai,Old City Himku suite,18000,THB,S-CMI-020,hotel-style suite
+chiang_mai,Hang Dong family villa midpoint,57500,THB,S-CMI-024,midpoint of 35k-80k range
+chiang_mai,San Sai house midpoint,11500,THB,S-CMI-023;S-CMI-024,midpoint of 8k-15k range
