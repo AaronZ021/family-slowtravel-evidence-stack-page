@@ -1,0 +1,13 @@
+city,month,avg_daily_high_c,rain_days_ge_1mm_per_30d,avg_rain_mm_per_30d
+lisbon,01,15.7,10.0,109.1
+lisbon,02,16.5,7.8,72.1
+lisbon,03,17.4,12.6,95.3
+lisbon,04,21.5,9.0,51.8
+lisbon,10,23.7,11.3,92.5
+lisbon,11,18.8,10.3,109.9
+chiang_mai,01,27.1,2.6,7.7
+chiang_mai,02,30.2,2.1,36.5
+chiang_mai,03,33.5,1.9,11.3
+chiang_mai,04,36.7,3.3,25.6
+chiang_mai,10,29.8,17.4,194.4
+chiang_mai,11,28.4,9.3,94.7

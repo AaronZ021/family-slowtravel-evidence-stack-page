@@ -1,0 +1,1727 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>指标证据栈 · 里斯本 vs 清迈 家庭慢旅基地</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🏝️</text></svg>">
+<style>
+:root {
+  --bg: #fafaf8;
+  --fg: #1a1a1a;
+  --muted: #666;
+  --accent: #b85450;
+  --lisbon: #2563eb;
+  --chiangmai: #d97706;
+  --border: #e5e3dd;
+  --code-bg: #f3f1ec;
+  --table-stripe: #f7f5f0;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; color: var(--fg); background: var(--bg); line-height: 1.65; }
+header.top { background: #fff; border-bottom: 1px solid var(--border); padding: 14px 24px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); background: rgba(255,255,255,0.85); }
+header.top .inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: baseline; gap: 24px; flex-wrap: wrap; }
+header.top h1 { font-size: 17px; margin: 0; font-weight: 600; }
+header.top nav { display: flex; gap: 16px; font-size: 14px; flex-wrap: wrap; }
+header.top nav a { color: var(--muted); text-decoration: none; }
+header.top nav a:hover { color: var(--accent); }
+header.top nav a.active { color: var(--fg); font-weight: 600; }
+main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
+.page-title { font-size: 32px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.5px; }
+.page-sub { color: var(--muted); margin: 0 0 32px; font-size: 15px; }
+h1 { font-size: 26px; margin: 40px 0 12px; font-weight: 700; letter-spacing: -0.3px; }
+h2 { font-size: 21px; margin: 32px 0 12px; font-weight: 700; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+h3 { font-size: 17px; margin: 24px 0 10px; font-weight: 600; }
+h4 { font-size: 15px; margin: 18px 0 8px; font-weight: 600; color: var(--muted); }
+p { margin: 10px 0; }
+ul, ol { padding-left: 22px; margin: 10px 0; }
+li { margin: 4px 0; }
+strong { font-weight: 600; }
+blockquote { border-left: 3px solid var(--accent); margin: 14px 0; padding: 4px 16px; color: #444; background: var(--code-bg); border-radius: 0 6px 6px 0; }
+code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; background: var(--code-bg); padding: 1px 6px; border-radius: 4px; font-size: 90%; }
+pre { background: var(--code-bg); padding: 14px 18px; border-radius: 8px; overflow-x: auto; font-size: 13px; }
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; background: #fff; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+th, td { padding: 10px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border); }
+th { background: var(--code-bg); font-weight: 600; font-size: 13px; }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: var(--table-stripe); }
+
+/* color coded source IDs */
+.s-lis { color: var(--lisbon); font-weight: 500; }
+.s-cmi { color: var(--chiangmai); font-weight: 500; }
+
+/* card grid on index */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+.card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 20px; transition: all 0.2s; }
+.card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+.card a { color: var(--fg); }
+.card a:hover { text-decoration: none; }
+.card h3 { margin: 0 0 6px; font-size: 16px; color: var(--accent); }
+.card p { margin: 0; color: var(--muted); font-size: 13px; }
+.card .tag { font-size: 11px; background: var(--code-bg); padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 8px; color: var(--muted); }
+
+/* footer */
+footer { max-width: 1200px; margin: 40px auto 24px; padding: 0 24px; color: var(--muted); font-size: 13px; }
+
+/* mobile */
+@media (max-width: 640px) {
+  header.top .inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+  .page-title { font-size: 24px; }
+  table { font-size: 13px; }
+  th, td { padding: 8px 10px; }
+}
+
+/* highlight rows where lisbon/chiang_mai obviously differ — handled by inline data attrs */
+.callout { background: #fff7ed; border: 1px solid #fed7aa; padding: 12px 18px; border-radius: 8px; margin: 16px 0; }
+.callout.warn { background: #fef2f2; border-color: #fecaca; }
+.callout.ok { background: #f0fdf4; border-color: #bbf7d0; }
+.source-badge { display: inline-flex; align-items: center; min-height: 24px; padding: 2px 7px; border-radius: 6px; background: #eef2ff; color: #3730a3; text-decoration: none; font-size: 12px; font-weight: 600; margin: 2px 4px 2px 0; white-space: nowrap; }
+.source-badge:hover { outline: 2px solid #818cf8; outline-offset: 1px; text-decoration: none; }
+.badges { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+.cell-label { margin: 10px 0 4px; font-size: 12px; font-weight: 700; color: var(--muted); }
+.cell-block p { margin: 0 0 8px; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 10px; }
+.meta-pill { display: inline-flex; min-height: 24px; align-items: center; padding: 2px 8px; border-radius: 6px; background: var(--code-bg); border: 1px solid var(--border); color: #333; font-size: 12px; font-weight: 600; }
+.evidence-tier { border-left: 4px solid var(--border); padding: 8px 0 2px 10px; margin: 10px 0; }
+.official-tier { border-left-color: #2563eb; }
+.platform-tier { border-left-color: #65a30d; }
+.community-tier { border-left-color: #d97706; }
+.source-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-top: 16px; }
+.source-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px; font-size: 13px; }
+.source-card h3 { margin: 6px 0; font-size: 15px; }
+.source-card dl { margin: 0; display: grid; gap: 4px; }
+.source-card dl div { display: grid; grid-template-columns: 72px 1fr; gap: 8px; }
+.source-card dt { color: var(--muted); }
+.source-card dd { margin: 0; overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="inner">
+    <h1>🏝️ 里斯本 vs 清迈 · 家庭慢旅基地</h1>
+    <nav>
+      <a href="index.html">首页</a>
+      <a href="indicator_evidence_stack.html" class="active">指标证据栈</a>
+      <a href="evidence_side_by_side.html">证据横向对照</a>
+      <a href="final_comparison_report.html">最终对比报告</a>
+      <a href="red_flags.html">红旗清单</a>
+      <a href="unknowns_and_next_verifications.html">未知与下一步</a>
+      <a href="comparison_matrix.html">对比矩阵</a>
+      <a href="evidence_lisbon.html">里斯本证据</a>
+      <a href="evidence_chiang_mai.html">清迈证据</a>
+    </nav>
+  </div>
+</header>
+<main>
+<h1 class="page-title">指标证据栈</h1>
+<p class="page-sub">每个小格子先写该城市在该维度的事实含义，再列官方/统计、平台/地图、社区反馈三类证据。证据 ID 是支撑，不替代文字判断。</p>
+<div class="callout"><strong>读法</strong>：这里不做城市总评。每行只处理一个维度；每个城市的小格子说明当前证据能支撑什么、哪里不足、下一步补什么。</div>
+<h2>第2层：城市级硬数据 baseline</h2>
+<table><thead><tr><th>维度</th><th>里斯本</th><th>清迈</th></tr></thead><tbody>
+<tr>
+<td><strong>签证/合法停留</strong></td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：三个月计划必须按申根 90/180 天逐人计算，签证或免签只解决入境资格，不解决超期风险。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：强</span>
+    <span class="meta-pill">置信度：高</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>官方证据足够覆盖核心规则：葡萄牙短期申根签证和欧盟 90/180 天规则。</p>
+    <div class="badges"><a class="source-badge" href="#src-LIS_VISA_01" title="Portugal short stay Schengen visa">LIS_VISA_01</a> <a class="source-badge" href="#src-EU_VISA_01" title="EU Schengen visa policy">EU_VISA_01</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>不需要平台/地图证据。</p>
+    
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>社区经验不能决定签证规则，只能用于申请流程经验；当前未纳入。</p>
+    
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>缺每位家庭成员护照、加拿大居留身份、过去 180 天申根记录、VFS 预约与材料。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>用官方申根计算器逐人核验；联系 VFS/领馆确认中国护照加拿大居民儿童材料。</p>
+</div>
+</td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：三个月可行性取决于逐人 e-Visa eligibility、旅游签延期或 DTV；不能按旧免签攻略直接规划。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：中</span>
+    <span class="meta-pill">置信度：中</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>官方证据能列出路径但不足以直接锁定方案：Thai e-Visa、泰国领馆旅游签、DTV 和 2026 免签变动。</p>
+    <div class="badges"><a class="source-badge" href="#src-TH_VISA_01" title="Thailand official e-Visa portal">TH_VISA_01</a> <a class="source-badge" href="#src-TH_VISA_02" title="Royal Thai Consulate Vancouver tourist visa">TH_VISA_02</a> <a class="source-badge" href="#src-TH_VISA_03" title="TAT visa exemption revision pending">TH_VISA_03</a> <a class="source-badge" href="#src-TH_DTV_01" title="DTV official embassy page">TH_DTV_01</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>不需要平台/地图证据。</p>
+    
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>社区经验不能决定签证规则，只能用于办理流程经验；当前未纳入。</p>
+    
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>缺每位家庭成员护照规则、TR 60+30 适用性、儿童材料、DTV 家属材料、延期实务。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>在 Thai e-Visa 按每位家庭成员跑 eligibility；询问泰国加拿大领馆。</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><strong>空气质量</strong></td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：空气质量不是里斯本三个月家庭日常的主红线；现有模型数据支持“偶发坏空气日需要关注，但通常不主导儿童户外节奏”。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：中-强</span>
+    <span class="meta-pill">置信度：中</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>官方证据显示里斯本有市政空气监测体系，但本轮尚未从官方站点拉出逐日历史值。</p>
+    <div class="badges"><a class="source-badge" href="#src-LIS_AIR_01" title="Lisbon city air monitoring">LIS_AIR_01</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>Open-Meteo 2023-2025 模型数据给出的目标月份 PM2.5 均值约 9.9-15.2 µg/m3；超过 25 µg/m3 的小时占比约 1.2%-14.1%，最高出现在 2 月。这说明目标月份会有坏空气小时，但不是类似清迈烟季的持续性结构问题。IQAir 页面作为实时/平台补充。</p>
+    <div class="badges"><a class="source-badge" href="#src-OPEN_METEO_AIR_01" title="Open-Meteo air quality archive 2023-2025">OPEN_METEO_AIR_01</a> <a class="source-badge" href="#src-LIS_AIR_02" title="IQAir Lisbon AQI">LIS_AIR_02</a></div>
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>当前社区反馈没有形成空气污染反复抱怨主题。</p>
+    
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>缺官方站点逐日 PM2.5 与 Open-Meteo 模型交叉验证。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>从 QualAr/EEA/OpenAQ 拉取里斯本站点 3-5 年 PM2.5 月度数据，计算超 25/35 µg/m3 天数。</p>
+</div>
+</td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：空气质量是清迈维度级硬约束，尤其 2-4 月；官方监测入口、模型数据、新闻和社区反馈共同指向同一事实。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：强</span>
+    <span class="meta-pill">置信度：高</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>官方证据强：Air4Thai/PCD 是核心数据源，区域环保办公室也持续发布北部 PM2.5 更新；加拿大官方旅行建议也明确点名清迈干季空气污染与儿童户外限制。</p>
+    <div class="badges"><a class="source-badge" href="#src-TH_AIR4THAI_01" title="Air4Thai official air quality portal">TH_AIR4THAI_01</a> <a class="source-badge" href="#src-TH_PCD_NORTH_01" title="Environmental and Pollution Control Office 1 northern PM2.5 updates">TH_PCD_NORTH_01</a> <a class="source-badge" href="#src-CM_AIR_02" title="Canada Thailand air pollution note">CM_AIR_02</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>Open-Meteo 2023-2025 模型数据显示，目标月份里清迈 3 月 PM2.5 均值约 37.6 µg/m3，4 月约 31.4 µg/m3；3 月超过 25 µg/m3 的小时约 72.1%，超过 35 µg/m3 的小时约 51.6%。这意味着 3 月不是“偶尔几天不好”，而是大量小时处在不适合幼儿户外活动的水平。IQAir 和新闻报道补充了 2026 烟季事件。</p>
+    <div class="badges"><a class="source-badge" href="#src-OPEN_METEO_AIR_01" title="Open-Meteo air quality archive 2023-2025">OPEN_METEO_AIR_01</a> <a class="source-badge" href="#src-CM_AIR_01" title="IQAir Chiang Mai burning season March 2026">CM_AIR_01</a> <a class="source-badge" href="#src-CM_AIR_03" title="Nation Thailand Chiang Mai pollution">CM_AIR_03</a></div>
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>Reddit 和家庭社区反复出现烟季逃离、呼吸不适、3-4 月避开等主题，和官方/平台信号一致。</p>
+    <div class="badges"><a class="source-badge" href="#src-CM_COMM_04" title="Reddit 2026 burning season megathread">CM_COMM_04</a> <a class="source-badge" href="#src-CM_COMM_08" title="Reddit ThailandTourism burning season Chiang Mai">CM_COMM_08</a> <a class="source-badge" href="#src-CM_COMM_09" title="Reddit Chiang Mai air quality dealbreaker or doable">CM_COMM_09</a> <a class="source-badge" href="#src-CM_COMM_10" title="Reddit concerned parent Chiang Mai air pollution">CM_COMM_10</a></div>
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>缺 Air4Thai 官方逐日历史导出、儿童健康阈值、住房净化器实测效果。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>从 Air4Thai/PCD 拉取 2019-2026 Chiang Mai 站点逐日 PM2.5；按月份计算超 25/35 µg/m3 天数。</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><strong>气候</strong></td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：目标月份温度整体适合日常户外，但冬春秋都有相当数量雨天；住房室内空间和雨天活动需要作为生活系统的一部分。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：中-强</span>
+    <span class="meta-pill">置信度：中</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>现有官方气象数据不足；Eurostat 城市统计可作为城市环境数据入口但不是具体气候数据。</p>
+    <div class="badges"><a class="source-badge" href="#src-EUROSTAT_CITY_01" title="Eurostat city statistics information">EUROSTAT_CITY_01</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>Open-Meteo 2023-2025 模型数据说明：目标月份日最高温均值约 15.7-23.7°C，温度本身适合幼儿户外；但 1 月、3 月、10 月、11 月按每 30 天折算约 10-13 个雨日，说明里斯本的摩擦主要是雨天和室内 fallback，而不是热或冷。WeatherSpark 作为第二平台参照。</p>
+    <div class="badges"><a class="source-badge" href="#src-OPEN_METEO_CLIMATE_01" title="Open-Meteo historical weather archive 2023-2025">OPEN_METEO_CLIMATE_01</a> <a class="source-badge" href="#src-LIS_CLIM_01" title="WeatherSpark Lisbon climate">LIS_CLIM_01</a></div>
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>社区层目前未形成气候相关强重复主题；住房湿冷和雨天 fallback 主要来自解释性风险。</p>
+    
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>缺 IPMA 官方 normals、湿度、风、体感和极端天气。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>补 IPMA 里斯本站点 1991-2020 normals 或近 10 年月度数据。</p>
+</div>
+</td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：11-1 月气候更适合作为家庭慢旅行窗口；3-4 月高温与空气污染叠加，10 月雨量对户外节奏有影响。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：中-强</span>
+    <span class="meta-pill">置信度：中</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>官方气候入口已找到：Thai Meteorological Department climate pages 和 monthly weather summary。</p>
+    <div class="badges"><a class="source-badge" href="#src-TH_TMD_CLIMATE_01" title="Thai Meteorological Department climate pages">TH_TMD_CLIMATE_01</a> <a class="source-badge" href="#src-TH_TMD_MONTHLY_01" title="Thai Meteorological Department monthly weather summary">TH_TMD_MONTHLY_01</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>Open-Meteo 2023-2025 模型数据说明：清迈 3 月日最高温均值约 33.5°C，4 月约 36.7°C；10 月按每 30 天折算约 17.4 个雨日、约 194 mm 降雨。也就是说，清迈的季节摩擦不是抽象的“热带天气”，而是 3-4 月热、10 月雨季尾巴、2-4 月空气共同叠加。WeatherSpark 提供第二平台参照。</p>
+    <div class="badges"><a class="source-badge" href="#src-OPEN_METEO_CLIMATE_01" title="Open-Meteo historical weather archive 2023-2025">OPEN_METEO_CLIMATE_01</a> <a class="source-badge" href="#src-CM_CLIM_01" title="WeatherSpark Chiang Mai climate">CM_CLIM_01</a></div>
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>社区反馈能补充雨季/热季实际生活感，但当前样本仍少。</p>
+    <div class="badges"><a class="source-badge" href="#src-CM_COMM_14" title="Reddit Chiang Mai rainy season comments">CM_COMM_14</a></div>
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>缺 TMD Chiang Mai 站点 normals、湿度、热指数和近年异常。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>从 TMD climate chart/monthly summary 提取 Chiang Mai 目标月份 normals，并和 Open-Meteo 对比。</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><strong>住房成本/供应</strong></td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：住房是里斯本维度级主要摩擦；官方统计可支撑高成本背景，平台样本证明供应存在，但不足以证明低风险可订。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：中</span>
+    <span class="meta-pill">置信度：中</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>官方统计入口已补：Eurostat housing、INE local housing prices/rents 和 INE 方法说明。</p>
+    <div class="badges"><a class="source-badge" href="#src-EUROSTAT_HOUSING_01" title="Eurostat housing statistics overview">EUROSTAT_HOUSING_01</a> <a class="source-badge" href="#src-INE_HOUSING_01" title="Statistics Portugal local housing prices and rents datasets">INE_HOUSING_01</a> <a class="source-badge" href="#src-INE_HOUSING_02" title="INE city housing prices methodology">INE_HOUSING_02</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>已有 10 个中短租样本，但主要证明供应存在，不证明最终可订性或适娃质量。</p>
+    <div class="badges"><a class="source-badge" href="#src-LISH_01" title="Flatio T2 Campo de Ourique">LISH_01</a> <a class="source-badge" href="#src-LISH_02" title="Flatio 2BR Chic Bright Campo de Ourique">LISH_02</a> <a class="source-badge" href="#src-LISH_03" title="Flatio Encanto do Tejo T2">LISH_03</a> <a class="source-badge" href="#src-LISH_04" title="Flatio Parque das Nacoes apartment">LISH_04</a> <a class="source-badge" href="#src-LISH_05" title="Lisbon Serviced Apartments Benformoso 2BR">LISH_05</a> <a class="source-badge" href="#src-LISH_06" title="Lisbon Serviced Apartments Principe Real 2BR">LISH_06</a> <a class="source-badge" href="#src-LISH_07" title="Vrbo Prime Lisbon Living 2BR">LISH_07</a> <a class="source-badge" href="#src-LISH_08" title="Vrbo Campo de Ourique rentals">LISH_08</a> <a class="source-badge" href="#src-LISH_09" title="Vrbo Borja111 family apartment">LISH_09</a> <a class="source-badge" href="#src-LISH_10" title="Flatio Campolide 2BR">LISH_10</a></div>
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>社区/样本风险提示房源成本、押金、噪音、区域选择问题，但仍未系统抽样。</p>
+    <div class="badges"><a class="source-badge" href="#src-LISH_09" title="Vrbo Borja111 family apartment">LISH_09</a> <a class="source-badge" href="#src-LIS_COMM_04" title="Reddit Best area with kids Lisbon">LIS_COMM_04</a></div>
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>缺 75-90 晚实时报价、区域租金分布、短租法规、房源评论系统抽样。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>补 INE Lisbon rent €/m2、Idealista/Imovirtual asking rent、10-20 个房源逐项确认。</p>
+</div>
+</td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：供应存在，但成本优势和低风险程度目前主要由平台样本支撑，官方统计不足。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：中偏弱</span>
+    <span class="meta-pill">置信度：中-低</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>尚缺可靠官方租金统计；目前没有等同 INE/Eurostat 的城市租金官方入口。</p>
+    <div class="badges"><a class="source-badge" href="#src-CM_TOURIST_POLICE_01" title="Chiang Mai Tourist Police visitor statistics">CM_TOURIST_POLICE_01</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>已有 10 个月租/服务式公寓/平台样本，能证明供应存在。</p>
+    <div class="badges"><a class="source-badge" href="#src-CMH_01" title="Yantarasri Nimman serviced apartment">CMH_01</a> <a class="source-badge" href="#src-CMH_02" title="Anantara Chiang Mai two bedroom suite">CMH_02</a> <a class="source-badge" href="#src-CMH_03" title="Hillside Condominium 2 2BR">CMH_03</a> <a class="source-badge" href="#src-CMH_04" title="Studio365 two bedroom apartment">CMH_04</a> <a class="source-badge" href="#src-CMH_05" title="Thailand Property Hang Dong 2BR condos">CMH_05</a> <a class="source-badge" href="#src-CMH_06" title="Lanna Property Moda Condo 2BR">CMH_06</a> <a class="source-badge" href="#src-CMH_07" title="CNX Cribs long-term rentals">CMH_07</a> <a class="source-badge" href="#src-CMH_08" title="Booking Nimman Maya 2BR family suite">CMH_08</a> <a class="source-badge" href="#src-CMH_09" title="FazWaz The Unique at Nimman 2BR">CMH_09</a> <a class="source-badge" href="#src-CMH_10" title="Reddit Chiang Mai serviced apartments">CMH_10</a></div>
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>社区反馈支持短租/2-3 个月 condo 可行性，但只是轶事。</p>
+    <div class="badges"><a class="source-badge" href="#src-CM_COMM_06" title="Reddit booking condo 2-3 months possible">CM_COMM_06</a> <a class="source-badge" href="#src-CMH_10" title="Reddit Chiang Mai serviced apartments">CMH_10</a></div>
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>缺官方或大型平台租金基准、区域价格分布、90 晚合同条款、净化器/噪音/儿童安全。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>补 FazWaz/DotProperty/Hipflat/Booking/Airbnb 手工样本；寻找 Thai NSO 或 local housing statistics。</p>
+</div>
+</td>
+</tr>
+</tbody></table>
+<h2>第3层：候选区域生活可运行性</h2>
+<table><thead><tr><th>维度</th><th>里斯本</th><th>清迈</th></tr></thead><tbody>
+<tr>
+<td><strong>儿童日常活动</strong></td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：Campo de Ourique 与 Estrela/Lapa 的日常儿童活动和日常服务密度更像“可步行生活系统”；Parque das Nacoes 儿童开放空间强但日常 grocery 密度需靠具体房源位置确认；Belem/Restelo 更偏周末/开放空间型。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：中-强</span>
+    <span class="meta-pill">置信度：中</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>官方基础增强：Lisbon municipal parks/gardens、Lisboa Aberta 和 horticultural parks 页面表明官方有公园/设施数据入口。</p>
+    <div class="badges"><a class="source-badge" href="#src-LIS_PARKS_01" title="Lisbon gardens and parks">LIS_PARKS_01</a> <a class="source-badge" href="#src-LIS_PARKS_02" title="Lisbon horticultural parks and child facilities context">LIS_PARKS_02</a> <a class="source-badge" href="#src-LIS_OPEN_DATA_01" title="Lisboa Aberta open data portal">LIS_OPEN_DATA_01</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>OSM 1km 数据把区域差异拉开：Campo de Ourique 和 Estrela/Lapa 周边不是只有一个标志性公园，而是步行半径内同时有多个 playground、park、超市、药房和咖啡；Parque das Nacoes 1km 内 park/河滨空间存在，但 grocery 数量明显少于 Campo/Estrela；Belem/Restelo 1km 内开放空间较强但 laundry 和 clinic 较少。具体场馆样本补充了室内 play 和文化 fallback。</p>
+    <div class="badges"><a class="source-badge" href="#src-OSM_POI_01" title="OpenStreetMap Overpass candidate-area POI extract">OSM_POI_01</a> <a class="source-badge" href="#src-LIS_CHILD_01" title="SandCastle indoor playground cafe">LIS_CHILD_01</a> <a class="source-badge" href="#src-LIS_CHILD_02" title="Wooki sensory playgroups">LIS_CHILD_02</a> <a class="source-badge" href="#src-LIS_CHILD_04" title="Jardim da Estrela Visit Lisboa">LIS_CHILD_04</a> <a class="source-badge" href="#src-LIS_CHILD_05" title="Lisbon playgrounds Lets Go Baby">LIS_CHILD_05</a> <a class="source-badge" href="#src-LIS_CHILD_06" title="Teddy and Friends playground">LIS_CHILD_06</a> <a class="source-badge" href="#src-LIS_CHILD_07" title="Oceanario family programs">LIS_CHILD_07</a> <a class="source-badge" href="#src-LIS_CHILD_08" title="Reddit kids play outside Portugal">LIS_CHILD_08</a> <a class="source-badge" href="#src-LIS_CHILD_09" title="Reddit Lisbon active 2.5 year old">LIS_CHILD_09</a></div>
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>社区反馈支持 playground/park 可用，同时提示历史中心或阴影/维护等差异。</p>
+    <div class="badges"><a class="source-badge" href="#src-LIS_COMM_04" title="Reddit Best area with kids Lisbon">LIS_COMM_04</a> <a class="source-badge" href="#src-LIS_COMM_05" title="Reddit Toddler vs Lisbon">LIS_COMM_05</a> <a class="source-badge" href="#src-LIS_COMM_07" title="Reddit Lisbon active 2.5 year old playground comments">LIS_COMM_07</a> <a class="source-badge" href="#src-LIS_COMM_08" title="Reddit kids play outside Portugal playground comments">LIS_COMM_08</a></div>
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>OSM 不等于完整设施清单；缺厕所、遮阴、围栏、设施维护、推车坡度和室内 fallback 距离。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>对每个候选区选 3 个房源点，核对 1km 步行路线、厕所/遮阴/围栏和雨天活动。</p>
+</div>
+</td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：清迈儿童活动不是“城市步行公园系统”，而更像“室内/亲子咖啡 + 少数公园锚点 + 车程活动”的系统；Old City 近公园，Nimman 近服务，Hang Dong 近亲子场所但更车依赖。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：中-强</span>
+    <span class="meta-pill">置信度：中</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>官方儿童设施数据不足；市级文化中心能支撑文化入口，但不能支撑 playground 密度。</p>
+    <div class="badges"><a class="source-badge" href="#src-CM_CITY_CULTURE_01" title="Chiang Mai City Heritage Centre about">CM_CITY_CULTURE_01</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>OSM 1km 数据显示 Nimman/Santitham 生活服务和咖啡非常密，但没有映射到 playground；Old City outer edge 1km 内至少有 Nong Buak Haad 这类公园锚点，同时 grocery、药房和洗衣较多；Hang Dong 1km 内服务和儿童点稀疏，说明它的亲子优势主要不是步行半径，而是 5km/开车半径内的亲子咖啡、学校和郊区空间；San Sai 1km 生活服务最弱。</p>
+    <div class="badges"><a class="source-badge" href="#src-OSM_POI_01" title="OpenStreetMap Overpass candidate-area POI extract">OSM_POI_01</a> <a class="source-badge" href="#src-CM_PARK_NONG_01" title="Nong Buak Haad Public Park CMHY">CM_PARK_NONG_01</a> <a class="source-badge" href="#src-CM_PARK_NONG_02" title="Nong Buak Haad Public Park Chiang Mai Master">CM_PARK_NONG_02</a> <a class="source-badge" href="#src-CM_CHILD_01" title="Nics Restaurant Playground">CM_CHILD_01</a> <a class="source-badge" href="#src-CM_CHILD_02" title="YuuBaan Studio activities">CM_CHILD_02</a> <a class="source-badge" href="#src-CM_CHILD_03" title="Din Cafe Hang Dong family guide">CM_CHILD_03</a> <a class="source-badge" href="#src-CM_CHILD_04" title="Lenmaii Playground Cafe">CM_CHILD_04</a> <a class="source-badge" href="#src-CM_CHILD_06" title="Triplets Eat and Play">CM_CHILD_06</a> <a class="source-badge" href="#src-CM_CHILD_07" title="CNXlocal kid friendly cafes parks playgrounds">CM_CHILD_07</a></div>
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>社区反馈支持公园和儿童生态存在，但也说明户外受烟季/交通影响。</p>
+    <div class="badges"><a class="source-badge" href="#src-CM_CHILD_12" title="Reddit single mom expat Chiang Mai">CM_CHILD_12</a> <a class="source-badge" href="#src-CM_COMM_12" title="Reddit favorite park Nong Buak Haad">CM_COMM_12</a> <a class="source-badge" href="#src-CM_COMM_13" title="Reddit public park garden hangout Chiang Mai">CM_COMM_13</a> <a class="source-badge" href="#src-CM_COMM_04" title="Reddit 2026 burning season megathread">CM_COMM_04</a></div>
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>OSM 对泰国 POI 完整度不稳定；缺场馆空气净化、营业时间、实际 Grab 车程和儿童座椅。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>对 Nimman、Old City、Hang Dong、San Sai 各建 5 个室内 fallback 和 5 个户外点的实测距离表。</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><strong>交通/移动性</strong></td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：里斯本无车生活的基础成立，但不是所有候选区同等低摩擦；Campo/Estrela 更像步行日常，Parque/Belem 需要房源级路线核验。儿童座椅和坡路仍是实际风险。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：中-强</span>
+    <span class="meta-pill">置信度：中</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>官方证据强：市政公共交通页面和 Carris Metropolitana open data 可支撑网络和站点层分析。</p>
+    <div class="badges"><a class="source-badge" href="#src-LIS_MOB_01" title="Lisbon public transportation">LIS_MOB_01</a> <a class="source-badge" href="#src-LIS_MOB_02" title="Lisbon Metro children stroller">LIS_MOB_02</a> <a class="source-badge" href="#src-LIS_TRANSIT_OPEN_01" title="Carris Metropolitana open data">LIS_TRANSIT_OPEN_01</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>OSM 1km 数据说明 Campo de Ourique、Estrela/Lapa 周边 grocery、pharmacy、laundry、cafe 都足够密，许多日常任务可在步行半径解决；Parque das Nacoes 和 Belem/Restelo 的日常服务密度更依赖具体房源点。Bolt/Uber 儿童座椅政策提示打车不能默认有儿童座椅。</p>
+    <div class="badges"><a class="source-badge" href="#src-OSM_POI_01" title="OpenStreetMap Overpass candidate-area POI extract">OSM_POI_01</a> <a class="source-badge" href="#src-LIS_MOB_03" title="Bolt travelling with children">LIS_MOB_03</a> <a class="source-badge" href="#src-LIS_MOB_04" title="Uber car seats">LIS_MOB_04</a></div>
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>社区反馈增强 stroller/坡路/石子路摩擦证据。</p>
+    <div class="badges"><a class="source-badge" href="#src-LIS_MOB_05" title="Reddit Lisbon toddler car seat">LIS_MOB_05</a> <a class="source-badge" href="#src-LIS_COMM_05" title="Reddit Toddler vs Lisbon">LIS_COMM_05</a></div>
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>缺候选区到医院/公园/超市的真实路线、坡度、无障碍站点。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>用 GTFS/地图对最终房源做 15/30 分钟生活圈和 stroller route audit。</p>
+</div>
+</td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：清迈不是统一的“可无车城市”；Nimman/Old City 可能局部可步行，Hang Dong/San Sai 则更像车程生活。儿童座椅和高峰车程仍是核心缺口。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：中-强</span>
+    <span class="meta-pill">置信度：中</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>官方交通开放数据不足；目前没有能支撑完整公交网络判断的官方数据。</p>
+    <div class="badges"><a class="source-badge" href="#src-CM_TOURIST_POLICE_01" title="Chiang Mai Tourist Police visitor statistics">CM_TOURIST_POLICE_01</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>OSM 1km 数据显示 Nimman 和 Old City edge 周边日常服务密度较高，可以减少部分车程；Hang Dong 和 San Sai 1km 生活服务稀疏，说明若住在这些郊区区域，儿童活动、医疗和购物更可能依赖 Grab/私车。Moovit/RTC/songthaew/Grab 指向非轨道交通体系。</p>
+    <div class="badges"><a class="source-badge" href="#src-OSM_POI_01" title="OpenStreetMap Overpass candidate-area POI extract">OSM_POI_01</a> <a class="source-badge" href="#src-CM_MOB_01" title="Chiang Mai public transport songthaew">CM_MOB_01</a> <a class="source-badge" href="#src-CM_MOB_02" title="How to use songthaew with family">CM_MOB_02</a></div>
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>社区反馈反复支持无完整公共交通、Grab/车依赖和区域取舍主题。</p>
+    <div class="badges"><a class="source-badge" href="#src-CM_MOB_03" title="Reddit single mom no public transit">CM_MOB_03</a> <a class="source-badge" href="#src-CM_MOB_04" title="Reddit The Base Height family">CM_MOB_04</a> <a class="source-badge" href="#src-CM_COMM_11" title="Reddit Chiang Mai city bus spotted around Nimman">CM_COMM_11</a></div>
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>缺 RTC 官方路线/频率、Grab 儿童座椅、候选区高峰车程。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>补 RTC official route source；从候选区到医院/活动/超市做地图车程和等待时间样本。</p>
+</div>
+</td>
+</tr>
+</tbody></table>
+<h2>第4层：社区反馈 overlay</h2>
+<table><thead><tr><th>维度</th><th>里斯本</th><th>清迈</th></tr></thead><tbody>
+<tr>
+<td><strong>住房/区域真实摩擦</strong></td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：社区证据目前只能作为风险提示，不能独立支撑住房维度结论。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：弱-中</span>
+    <span class="meta-pill">置信度：低-中</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>官方和平台证据只能说明市场/供应，不能说明住进去后的噪音、楼梯、潮湿、押金体验。</p>
+    <div class="badges"><a class="source-badge" href="#src-INE_HOUSING_01" title="Statistics Portugal local housing prices and rents datasets">INE_HOUSING_01</a> <a class="source-badge" href="#src-LISH_01" title="Flatio T2 Campo de Ourique">LISH_01</a> <a class="source-badge" href="#src-LISH_02" title="Flatio 2BR Chic Bright Campo de Ourique">LISH_02</a> <a class="source-badge" href="#src-LISH_03" title="Flatio Encanto do Tejo T2">LISH_03</a> <a class="source-badge" href="#src-LISH_04" title="Flatio Parque das Nacoes apartment">LISH_04</a> <a class="source-badge" href="#src-LISH_05" title="Lisbon Serviced Apartments Benformoso 2BR">LISH_05</a> <a class="source-badge" href="#src-LISH_06" title="Lisbon Serviced Apartments Principe Real 2BR">LISH_06</a> <a class="source-badge" href="#src-LISH_07" title="Vrbo Prime Lisbon Living 2BR">LISH_07</a> <a class="source-badge" href="#src-LISH_08" title="Vrbo Campo de Ourique rentals">LISH_08</a> <a class="source-badge" href="#src-LISH_09" title="Vrbo Borja111 family apartment">LISH_09</a> <a class="source-badge" href="#src-LISH_10" title="Flatio Campolide 2BR">LISH_10</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>平台样本给出可询问字段。</p>
+    <div class="badges"><a class="source-badge" href="#src-LISH_01" title="Flatio T2 Campo de Ourique">LISH_01</a> <a class="source-badge" href="#src-LISH_02" title="Flatio 2BR Chic Bright Campo de Ourique">LISH_02</a> <a class="source-badge" href="#src-LISH_03" title="Flatio Encanto do Tejo T2">LISH_03</a> <a class="source-badge" href="#src-LISH_04" title="Flatio Parque das Nacoes apartment">LISH_04</a> <a class="source-badge" href="#src-LISH_05" title="Lisbon Serviced Apartments Benformoso 2BR">LISH_05</a> <a class="source-badge" href="#src-LISH_06" title="Lisbon Serviced Apartments Principe Real 2BR">LISH_06</a> <a class="source-badge" href="#src-LISH_07" title="Vrbo Prime Lisbon Living 2BR">LISH_07</a> <a class="source-badge" href="#src-LISH_08" title="Vrbo Campo de Ourique rentals">LISH_08</a> <a class="source-badge" href="#src-LISH_09" title="Vrbo Borja111 family apartment">LISH_09</a> <a class="source-badge" href="#src-LISH_10" title="Flatio Campolide 2BR">LISH_10</a></div>
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>社区反馈可增强区域选择和 stroller/旅游核心区不适配问题，但样本还少。</p>
+    <div class="badges"><a class="source-badge" href="#src-LIS_COMM_04" title="Reddit Best area with kids Lisbon">LIS_COMM_04</a> <a class="source-badge" href="#src-LIS_COMM_05" title="Reddit Toddler vs Lisbon">LIS_COMM_05</a> <a class="source-badge" href="#src-LISH_09" title="Vrbo Borja111 family apartment">LISH_09</a></div>
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>缺 Booking/Airbnb/Google review 系统抽样和至少 5 个重复主题计数。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>按区域抽 30 条房源/街区评论，编码噪音、霉味、楼梯、host、儿童适配。</p>
+</div>
+</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>空气/交通真实摩擦</strong></td>
+<td></td>
+<td>
+<div class="cell-block">
+  <div class="cell-label">当前维度评估</div>
+  <p>可判断：社区反馈显著增强空气维度可信度；交通反馈也支持摩擦存在，但需要更多结构化样本。</p>
+  <div class="meta-row">
+    <span class="meta-pill">证据充分性：中-强</span>
+    <span class="meta-pill">置信度：中</span>
+  </div>
+  <div class="evidence-tier official-tier">
+    <div class="cell-label">官方/统计证据</div>
+    <p>官方空气证据很强；交通官方证据偏弱。</p>
+    <div class="badges"><a class="source-badge" href="#src-TH_AIR4THAI_01" title="Air4Thai official air quality portal">TH_AIR4THAI_01</a> <a class="source-badge" href="#src-TH_PCD_NORTH_01" title="Environmental and Pollution Control Office 1 northern PM2.5 updates">TH_PCD_NORTH_01</a> <a class="source-badge" href="#src-CM_AIR_02" title="Canada Thailand air pollution note">CM_AIR_02</a></div>
+  </div>
+  <div class="evidence-tier platform-tier">
+    <div class="cell-label">平台/地图证据</div>
+    <p>平台/新闻提供烟季事件和交通方式补充。</p>
+    <div class="badges"><a class="source-badge" href="#src-CM_AIR_01" title="IQAir Chiang Mai burning season March 2026">CM_AIR_01</a> <a class="source-badge" href="#src-CM_AIR_03" title="Nation Thailand Chiang Mai pollution">CM_AIR_03</a> <a class="source-badge" href="#src-CM_MOB_01" title="Chiang Mai public transport songthaew">CM_MOB_01</a> <a class="source-badge" href="#src-CM_MOB_02" title="How to use songthaew with family">CM_MOB_02</a></div>
+  </div>
+  <div class="evidence-tier community-tier">
+    <div class="cell-label">社区反馈 overlay</div>
+    <p>社区反馈对烟季、家庭逃离、呼吸不适、Grab/无公交等主题是强 overlay，和官方空气数据一致。</p>
+    <div class="badges"><a class="source-badge" href="#src-CM_COMM_04" title="Reddit 2026 burning season megathread">CM_COMM_04</a> <a class="source-badge" href="#src-CM_MOB_03" title="Reddit single mom no public transit">CM_MOB_03</a> <a class="source-badge" href="#src-CM_MOB_04" title="Reddit The Base Height family">CM_MOB_04</a> <a class="source-badge" href="#src-CM_COMM_08" title="Reddit ThailandTourism burning season Chiang Mai">CM_COMM_08</a> <a class="source-badge" href="#src-CM_COMM_09" title="Reddit Chiang Mai air quality dealbreaker or doable">CM_COMM_09</a> <a class="source-badge" href="#src-CM_COMM_10" title="Reddit concerned parent Chiang Mai air pollution">CM_COMM_10</a></div>
+  </div>
+  <div class="cell-label">缺口</div>
+  <p>缺按平台和日期去重的社区主题计数；缺家长/儿童专门样本。</p>
+  <div class="cell-label">下一步补数</div>
+  <p>做 Reddit/博客/Google review 主题抽样，分空气、交通、儿童、住房四类计数。</p>
+</div>
+</td>
+</tr>
+</tbody></table>
+<h2>本页来源索引</h2>
+<div class="source-grid">
+<article class="source-card" id="src-CMH_01">
+  <a class="source-badge" href="https://www.thaiapartment.com/apartment/yantarasri-nimman-muangchiangmai-11986" target="_blank" rel="noopener">CMH_01</a>
+  <h3><a href="https://www.thaiapartment.com/apartment/yantarasri-nimman-muangchiangmai-11986" target="_blank" rel="noopener">Yantarasri Nimman serviced apartment</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.thaiapartment.com/apartment/yantarasri-nimman-muangchiangmai-11986" target="_blank" rel="noopener">https://www.thaiapartment.com/apartment/yantarasri-nimman-muangchiangmai-11986</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CMH_02">
+  <a class="source-badge" href="https://www.anantara.com/en/chiang-mai-serviced-suites/residences/two-bedroom-suite" target="_blank" rel="noopener">CMH_02</a>
+  <h3><a href="https://www.anantara.com/en/chiang-mai-serviced-suites/residences/two-bedroom-suite" target="_blank" rel="noopener">Anantara Chiang Mai two bedroom suite</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.anantara.com/en/chiang-mai-serviced-suites/residences/two-bedroom-suite" target="_blank" rel="noopener">https://www.anantara.com/en/chiang-mai-serviced-suites/residences/two-bedroom-suite</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CMH_03">
+  <a class="source-badge" href="https://www.thaiapartment.com/condo-detail/condominium-for-rent-hillside-condominium-2-81016" target="_blank" rel="noopener">CMH_03</a>
+  <h3><a href="https://www.thaiapartment.com/condo-detail/condominium-for-rent-hillside-condominium-2-81016" target="_blank" rel="noopener">Hillside Condominium 2 2BR</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.thaiapartment.com/condo-detail/condominium-for-rent-hillside-condominium-2-81016" target="_blank" rel="noopener">https://www.thaiapartment.com/condo-detail/condominium-for-rent-hillside-condominium-2-81016</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CMH_04">
+  <a class="source-badge" href="https://www.chiangmaiservicedapartments.com/en/accommodation/detail/45/two-bedroom-balcony-apartment-75m2" target="_blank" rel="noopener">CMH_04</a>
+  <h3><a href="https://www.chiangmaiservicedapartments.com/en/accommodation/detail/45/two-bedroom-balcony-apartment-75m2" target="_blank" rel="noopener">Studio365 two bedroom apartment</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.chiangmaiservicedapartments.com/en/accommodation/detail/45/two-bedroom-balcony-apartment-75m2" target="_blank" rel="noopener">https://www.chiangmaiservicedapartments.com/en/accommodation/detail/45/two-bedroom-balcony-apartment-75m2</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CMH_05">
+  <a class="source-badge" href="https://www.thailand-property.com/condos-for-rent/chiang-mai/hang-dong/2-bedrooms" target="_blank" rel="noopener">CMH_05</a>
+  <h3><a href="https://www.thailand-property.com/condos-for-rent/chiang-mai/hang-dong/2-bedrooms" target="_blank" rel="noopener">Thailand Property Hang Dong 2BR condos</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.thailand-property.com/condos-for-rent/chiang-mai/hang-dong/2-bedrooms" target="_blank" rel="noopener">https://www.thailand-property.com/condos-for-rent/chiang-mai/hang-dong/2-bedrooms</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CMH_06">
+  <a class="source-badge" href="https://lannaproperty.com/property/modern-luxury-fully-furnished-2-bedrooms-2-bathrooms-conner-unit-with-moutain-view-next-to-maya-mall-near-nimman-road/" target="_blank" rel="noopener">CMH_06</a>
+  <h3><a href="https://lannaproperty.com/property/modern-luxury-fully-furnished-2-bedrooms-2-bathrooms-conner-unit-with-moutain-view-next-to-maya-mall-near-nimman-road/" target="_blank" rel="noopener">Lanna Property Moda Condo 2BR</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://lannaproperty.com/property/modern-luxury-fully-furnished-2-bedrooms-2-bathrooms-conner-unit-with-moutain-view-next-to-maya-mall-near-nimman-road/" target="_blank" rel="noopener">https://lannaproperty.com/property/modern-luxury-fully-furnished-2-bedrooms-2-bathrooms-conner-unit-with-moutain-view-next-to-maya-mall-near-nimman-road/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CMH_07">
+  <a class="source-badge" href="https://www.cnxcribs.com/" target="_blank" rel="noopener">CMH_07</a>
+  <h3><a href="https://www.cnxcribs.com/" target="_blank" rel="noopener">CNX Cribs long-term rentals</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.cnxcribs.com/" target="_blank" rel="noopener">https://www.cnxcribs.com/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CMH_08">
+  <a class="source-badge" href="https://www.booking.com/hotel/th/luxury-family-suite-two-bedroom-nimman-maya.en-gb.html" target="_blank" rel="noopener">CMH_08</a>
+  <h3><a href="https://www.booking.com/hotel/th/luxury-family-suite-two-bedroom-nimman-maya.en-gb.html" target="_blank" rel="noopener">Booking Nimman Maya 2BR family suite</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.booking.com/hotel/th/luxury-family-suite-two-bedroom-nimman-maya.en-gb.html" target="_blank" rel="noopener">https://www.booking.com/hotel/th/luxury-family-suite-two-bedroom-nimman-maya.en-gb.html</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CMH_09">
+  <a class="source-badge" href="https://www.fazwaz.co.th/en/property-rent/2-bedroom-condo-for-rent-at-the-unique-at-nimman-in-suthep-chiang-mai-u5588054" target="_blank" rel="noopener">CMH_09</a>
+  <h3><a href="https://www.fazwaz.co.th/en/property-rent/2-bedroom-condo-for-rent-at-the-unique-at-nimman-in-suthep-chiang-mai-u5588054" target="_blank" rel="noopener">FazWaz The Unique at Nimman 2BR</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.fazwaz.co.th/en/property-rent/2-bedroom-condo-for-rent-at-the-unique-at-nimman-in-suthep-chiang-mai-u5588054" target="_blank" rel="noopener">https://www.fazwaz.co.th/en/property-rent/2-bedroom-condo-for-rent-at-the-unique-at-nimman-in-suthep-chiang-mai-u5588054</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CMH_10">
+  <a class="source-badge" href="https://www.reddit.com/r/chiangmai/comments/1l3tl1v/serviced_apartments_in_chiang_mai/" target="_blank" rel="noopener">CMH_10</a>
+  <h3><a href="https://www.reddit.com/r/chiangmai/comments/1l3tl1v/serviced_apartments_in_chiang_mai/" target="_blank" rel="noopener">Reddit Chiang Mai serviced apartments</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/chiangmai/comments/1l3tl1v/serviced_apartments_in_chiang_mai/" target="_blank" rel="noopener">https://www.reddit.com/r/chiangmai/comments/1l3tl1v/serviced_apartments_in_chiang_mai/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_AIR_01">
+  <a class="source-badge" href="https://www.iqair.com/us/newsroom/chiang-mai-ranks-among-the-top-10-most-polluted-cities-during-thailand-s-burning-season-3-4-2026" target="_blank" rel="noopener">CM_AIR_01</a>
+  <h3><a href="https://www.iqair.com/us/newsroom/chiang-mai-ranks-among-the-top-10-most-polluted-cities-during-thailand-s-burning-season-3-4-2026" target="_blank" rel="noopener">IQAir Chiang Mai burning season March 2026</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>air_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.iqair.com/us/newsroom/chiang-mai-ranks-among-the-top-10-most-polluted-cities-during-thailand-s-burning-season-3-4-2026" target="_blank" rel="noopener">https://www.iqair.com/us/newsroom/chiang-mai-ranks-among-the-top-10-most-polluted-cities-during-thailand-s-burning-season-3-4-2026</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_AIR_02">
+  <a class="source-badge" href="https://travel.gc.ca/destinations/thailand" target="_blank" rel="noopener">CM_AIR_02</a>
+  <h3><a href="https://travel.gc.ca/destinations/thailand" target="_blank" rel="noopener">Canada Thailand air pollution note</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>air_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://travel.gc.ca/destinations/thailand" target="_blank" rel="noopener">https://travel.gc.ca/destinations/thailand</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_AIR_03">
+  <a class="source-badge" href="https://www.nationthailand.com/health-wellness/40064753" target="_blank" rel="noopener">CM_AIR_03</a>
+  <h3><a href="https://www.nationthailand.com/health-wellness/40064753" target="_blank" rel="noopener">Nation Thailand Chiang Mai pollution</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>news</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>air_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.nationthailand.com/health-wellness/40064753" target="_blank" rel="noopener">https://www.nationthailand.com/health-wellness/40064753</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_CHILD_01">
+  <a class="source-badge" href="https://nics.asia/" target="_blank" rel="noopener">CM_CHILD_01</a>
+  <h3><a href="https://nics.asia/" target="_blank" rel="noopener">Nics Restaurant Playground</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://nics.asia/" target="_blank" rel="noopener">https://nics.asia/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_CHILD_02">
+  <a class="source-badge" href="https://www.yuubaanstudio.com/activites" target="_blank" rel="noopener">CM_CHILD_02</a>
+  <h3><a href="https://www.yuubaanstudio.com/activites" target="_blank" rel="noopener">YuuBaan Studio activities</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.yuubaanstudio.com/activites" target="_blank" rel="noopener">https://www.yuubaanstudio.com/activites</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_CHILD_03">
+  <a class="source-badge" href="https://chiangmaifamilyguide.com/din-cafe-hang-dong/" target="_blank" rel="noopener">CM_CHILD_03</a>
+  <h3><a href="https://chiangmaifamilyguide.com/din-cafe-hang-dong/" target="_blank" rel="noopener">Din Cafe Hang Dong family guide</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>blog</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://chiangmaifamilyguide.com/din-cafe-hang-dong/" target="_blank" rel="noopener">https://chiangmaifamilyguide.com/din-cafe-hang-dong/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_CHILD_04">
+  <a class="source-badge" href="https://lenmaii-playground-cafe.goto-place.com/" target="_blank" rel="noopener">CM_CHILD_04</a>
+  <h3><a href="https://lenmaii-playground-cafe.goto-place.com/" target="_blank" rel="noopener">Lenmaii Playground Cafe</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>review</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>indoor_outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://lenmaii-playground-cafe.goto-place.com/" target="_blank" rel="noopener">https://lenmaii-playground-cafe.goto-place.com/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_CHILD_06">
+  <a class="source-badge" href="https://www.tripletseatandplay.com/" target="_blank" rel="noopener">CM_CHILD_06</a>
+  <h3><a href="https://www.tripletseatandplay.com/" target="_blank" rel="noopener">Triplets Eat and Play</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>indoor_outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.tripletseatandplay.com/" target="_blank" rel="noopener">https://www.tripletseatandplay.com/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_CHILD_07">
+  <a class="source-badge" href="https://cnxlocal.com/kid-friendly-cafes-parks-and-playgrounds-in-chiang-mai/" target="_blank" rel="noopener">CM_CHILD_07</a>
+  <h3><a href="https://cnxlocal.com/kid-friendly-cafes-parks-and-playgrounds-in-chiang-mai/" target="_blank" rel="noopener">CNXlocal kid friendly cafes parks playgrounds</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>blog</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>indoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://cnxlocal.com/kid-friendly-cafes-parks-and-playgrounds-in-chiang-mai/" target="_blank" rel="noopener">https://cnxlocal.com/kid-friendly-cafes-parks-and-playgrounds-in-chiang-mai/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_CHILD_12">
+  <a class="source-badge" href="https://www.reddit.com/r/chiangmai/comments/1kbs7pd/single_mom_expat/" target="_blank" rel="noopener">CM_CHILD_12</a>
+  <h3><a href="https://www.reddit.com/r/chiangmai/comments/1kbs7pd/single_mom_expat/" target="_blank" rel="noopener">Reddit single mom expat Chiang Mai</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>childcare</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/chiangmai/comments/1kbs7pd/single_mom_expat/" target="_blank" rel="noopener">https://www.reddit.com/r/chiangmai/comments/1kbs7pd/single_mom_expat/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_CITY_CULTURE_01">
+  <a class="source-badge" href="https://cmocity.com/about/" target="_blank" rel="noopener">CM_CITY_CULTURE_01</a>
+  <h3><a href="https://cmocity.com/about/" target="_blank" rel="noopener">Chiang Mai City Heritage Centre about</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>culture</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://cmocity.com/about/" target="_blank" rel="noopener">https://cmocity.com/about/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_CLIM_01">
+  <a class="source-badge" href="https://weatherspark.com/y/112821/Average-Weather-in-Chiang-Mai-Thailand-Year-Round" target="_blank" rel="noopener">CM_CLIM_01</a>
+  <h3><a href="https://weatherspark.com/y/112821/Average-Weather-in-Chiang-Mai-Thailand-Year-Round" target="_blank" rel="noopener">WeatherSpark Chiang Mai climate</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>climate</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://weatherspark.com/y/112821/Average-Weather-in-Chiang-Mai-Thailand-Year-Round" target="_blank" rel="noopener">https://weatherspark.com/y/112821/Average-Weather-in-Chiang-Mai-Thailand-Year-Round</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_COMM_04">
+  <a class="source-badge" href="https://www.reddit.com/r/chiangmai/comments/1qg5s23/2026_burning_season_megathread/" target="_blank" rel="noopener">CM_COMM_04</a>
+  <h3><a href="https://www.reddit.com/r/chiangmai/comments/1qg5s23/2026_burning_season_megathread/" target="_blank" rel="noopener">Reddit 2026 burning season megathread</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>air_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/chiangmai/comments/1qg5s23/2026_burning_season_megathread/" target="_blank" rel="noopener">https://www.reddit.com/r/chiangmai/comments/1qg5s23/2026_burning_season_megathread/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_COMM_06">
+  <a class="source-badge" href="https://www.reddit.com/r/chiangmai/comments/1opv3dg/booking_condo_for_23_months_possible/" target="_blank" rel="noopener">CM_COMM_06</a>
+  <h3><a href="https://www.reddit.com/r/chiangmai/comments/1opv3dg/booking_condo_for_23_months_possible/" target="_blank" rel="noopener">Reddit booking condo 2-3 months possible</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/chiangmai/comments/1opv3dg/booking_condo_for_23_months_possible/" target="_blank" rel="noopener">https://www.reddit.com/r/chiangmai/comments/1opv3dg/booking_condo_for_23_months_possible/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_COMM_08">
+  <a class="source-badge" href="https://www.reddit.com/r/ThailandTourism/comments/1s9700h/burning_seasonair_quality_in_chiang_mai/" target="_blank" rel="noopener">CM_COMM_08</a>
+  <h3><a href="https://www.reddit.com/r/ThailandTourism/comments/1s9700h/burning_seasonair_quality_in_chiang_mai/" target="_blank" rel="noopener">Reddit ThailandTourism burning season Chiang Mai</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>air_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/ThailandTourism/comments/1s9700h/burning_seasonair_quality_in_chiang_mai/" target="_blank" rel="noopener">https://www.reddit.com/r/ThailandTourism/comments/1s9700h/burning_seasonair_quality_in_chiang_mai/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_COMM_09">
+  <a class="source-badge" href="https://www.reddit.com/r/chiangmai/comments/17db1ku" target="_blank" rel="noopener">CM_COMM_09</a>
+  <h3><a href="https://www.reddit.com/r/chiangmai/comments/17db1ku" target="_blank" rel="noopener">Reddit Chiang Mai air quality dealbreaker or doable</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>air_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/chiangmai/comments/17db1ku" target="_blank" rel="noopener">https://www.reddit.com/r/chiangmai/comments/17db1ku</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_COMM_10">
+  <a class="source-badge" href="https://www.reddit.com/r/Thailand/comments/1jig76c" target="_blank" rel="noopener">CM_COMM_10</a>
+  <h3><a href="https://www.reddit.com/r/Thailand/comments/1jig76c" target="_blank" rel="noopener">Reddit concerned parent Chiang Mai air pollution</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>air_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/Thailand/comments/1jig76c" target="_blank" rel="noopener">https://www.reddit.com/r/Thailand/comments/1jig76c</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_COMM_11">
+  <a class="source-badge" href="https://www.reddit.com/r/chiangmai/comments/1nob29c" target="_blank" rel="noopener">CM_COMM_11</a>
+  <h3><a href="https://www.reddit.com/r/chiangmai/comments/1nob29c" target="_blank" rel="noopener">Reddit Chiang Mai city bus spotted around Nimman</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>mobility</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/chiangmai/comments/1nob29c" target="_blank" rel="noopener">https://www.reddit.com/r/chiangmai/comments/1nob29c</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_COMM_12">
+  <a class="source-badge" href="https://www.reddit.com/r/chiangmai/comments/ea18pr" target="_blank" rel="noopener">CM_COMM_12</a>
+  <h3><a href="https://www.reddit.com/r/chiangmai/comments/ea18pr" target="_blank" rel="noopener">Reddit favorite park Nong Buak Haad</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/chiangmai/comments/ea18pr" target="_blank" rel="noopener">https://www.reddit.com/r/chiangmai/comments/ea18pr</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_COMM_13">
+  <a class="source-badge" href="https://www.reddit.com/r/chiangmai/comments/zpliqw" target="_blank" rel="noopener">CM_COMM_13</a>
+  <h3><a href="https://www.reddit.com/r/chiangmai/comments/zpliqw" target="_blank" rel="noopener">Reddit public park garden hangout Chiang Mai</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/chiangmai/comments/zpliqw" target="_blank" rel="noopener">https://www.reddit.com/r/chiangmai/comments/zpliqw</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_COMM_14">
+  <a class="source-badge" href="https://www.reddit.com/r/chiangmai/comments/1t6bnjy/i_think_the_rainy_season_just_officially_started/" target="_blank" rel="noopener">CM_COMM_14</a>
+  <h3><a href="https://www.reddit.com/r/chiangmai/comments/1t6bnjy/i_think_the_rainy_season_just_officially_started/" target="_blank" rel="noopener">Reddit Chiang Mai rainy season comments</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>climate</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/chiangmai/comments/1t6bnjy/i_think_the_rainy_season_just_officially_started/" target="_blank" rel="noopener">https://www.reddit.com/r/chiangmai/comments/1t6bnjy/i_think_the_rainy_season_just_officially_started/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_MOB_01">
+  <a class="source-badge" href="https://www.chiangmaitraveller.com/chiang-mai-public-transport-songthaew/" target="_blank" rel="noopener">CM_MOB_01</a>
+  <h3><a href="https://www.chiangmaitraveller.com/chiang-mai-public-transport-songthaew/" target="_blank" rel="noopener">Chiang Mai public transport songthaew</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>blog</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>mobility</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.chiangmaitraveller.com/chiang-mai-public-transport-songthaew/" target="_blank" rel="noopener">https://www.chiangmaitraveller.com/chiang-mai-public-transport-songthaew/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_MOB_02">
+  <a class="source-badge" href="https://chiangmaifamilyguide.com/how-to-use-a-songtaew-in-chiang-mai/" target="_blank" rel="noopener">CM_MOB_02</a>
+  <h3><a href="https://chiangmaifamilyguide.com/how-to-use-a-songtaew-in-chiang-mai/" target="_blank" rel="noopener">How to use songthaew with family</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>blog</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>mobility</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://chiangmaifamilyguide.com/how-to-use-a-songtaew-in-chiang-mai/" target="_blank" rel="noopener">https://chiangmaifamilyguide.com/how-to-use-a-songtaew-in-chiang-mai/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_MOB_03">
+  <a class="source-badge" href="https://www.reddit.com/r/chiangmai/comments/1kbs7pd/single_mom_expat/" target="_blank" rel="noopener">CM_MOB_03</a>
+  <h3><a href="https://www.reddit.com/r/chiangmai/comments/1kbs7pd/single_mom_expat/" target="_blank" rel="noopener">Reddit single mom no public transit</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>mobility</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/chiangmai/comments/1kbs7pd/single_mom_expat/" target="_blank" rel="noopener">https://www.reddit.com/r/chiangmai/comments/1kbs7pd/single_mom_expat/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_MOB_04">
+  <a class="source-badge" href="https://www.reddit.com/r/chiangmai/comments/1p7q0z3/question_about_the_base_height_condo_in_chiang_mai/" target="_blank" rel="noopener">CM_MOB_04</a>
+  <h3><a href="https://www.reddit.com/r/chiangmai/comments/1p7q0z3/question_about_the_base_height_condo_in_chiang_mai/" target="_blank" rel="noopener">Reddit The Base Height family</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>mobility</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/chiangmai/comments/1p7q0z3/question_about_the_base_height_condo_in_chiang_mai/" target="_blank" rel="noopener">https://www.reddit.com/r/chiangmai/comments/1p7q0z3/question_about_the_base_height_condo_in_chiang_mai/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_PARK_NONG_01">
+  <a class="source-badge" href="https://www.cmhy.city/en/place/4578-Nong-buak-haad-Park" target="_blank" rel="noopener">CM_PARK_NONG_01</a>
+  <h3><a href="https://www.cmhy.city/en/place/4578-Nong-buak-haad-Park" target="_blank" rel="noopener">Nong Buak Haad Public Park CMHY</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.cmhy.city/en/place/4578-Nong-buak-haad-Park" target="_blank" rel="noopener">https://www.cmhy.city/en/place/4578-Nong-buak-haad-Park</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_PARK_NONG_02">
+  <a class="source-badge" href="https://www.chiangmaimaster.com/place/nong-buak-haad-public-park" target="_blank" rel="noopener">CM_PARK_NONG_02</a>
+  <h3><a href="https://www.chiangmaimaster.com/place/nong-buak-haad-public-park" target="_blank" rel="noopener">Nong Buak Haad Public Park Chiang Mai Master</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.chiangmaimaster.com/place/nong-buak-haad-public-park" target="_blank" rel="noopener">https://www.chiangmaimaster.com/place/nong-buak-haad-public-park</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-CM_TOURIST_POLICE_01">
+  <a class="source-badge" href="https://www.chiangmaitouristpolice.com/public-information/visitor-statistics" target="_blank" rel="noopener">CM_TOURIST_POLICE_01</a>
+  <h3><a href="https://www.chiangmaitouristpolice.com/public-information/visitor-statistics" target="_blank" rel="noopener">Chiang Mai Tourist Police visitor statistics</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>safety</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.chiangmaitouristpolice.com/public-information/visitor-statistics" target="_blank" rel="noopener">https://www.chiangmaitouristpolice.com/public-information/visitor-statistics</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-EUROSTAT_CITY_01">
+  <a class="source-badge" href="https://ec.europa.eu/eurostat/web/cities/information-data" target="_blank" rel="noopener">EUROSTAT_CITY_01</a>
+  <h3><a href="https://ec.europa.eu/eurostat/web/cities/information-data" target="_blank" rel="noopener">Eurostat city statistics information</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>urban_statistics</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://ec.europa.eu/eurostat/web/cities/information-data" target="_blank" rel="noopener">https://ec.europa.eu/eurostat/web/cities/information-data</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-EUROSTAT_HOUSING_01">
+  <a class="source-badge" href="https://ec.europa.eu/eurostat/web/housing" target="_blank" rel="noopener">EUROSTAT_HOUSING_01</a>
+  <h3><a href="https://ec.europa.eu/eurostat/web/housing" target="_blank" rel="noopener">Eurostat housing statistics overview</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://ec.europa.eu/eurostat/web/housing" target="_blank" rel="noopener">https://ec.europa.eu/eurostat/web/housing</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-EU_VISA_01">
+  <a class="source-badge" href="https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en" target="_blank" rel="noopener">EU_VISA_01</a>
+  <h3><a href="https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en" target="_blank" rel="noopener">EU Schengen visa policy</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>visa</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en" target="_blank" rel="noopener">https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-INE_HOUSING_01">
+  <a class="source-badge" href="https://smi.ine.pt/VariavelFisica/Detalhes_TabObjectosRelacionados/3222?clear=True" target="_blank" rel="noopener">INE_HOUSING_01</a>
+  <h3><a href="https://smi.ine.pt/VariavelFisica/Detalhes_TabObjectosRelacionados/3222?clear=True" target="_blank" rel="noopener">Statistics Portugal local housing prices and rents datasets</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://smi.ine.pt/VariavelFisica/Detalhes_TabObjectosRelacionados/3222?clear=True" target="_blank" rel="noopener">https://smi.ine.pt/VariavelFisica/Detalhes_TabObjectosRelacionados/3222?clear=True</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-INE_HOUSING_02">
+  <a class="source-badge" href="https://geohab.ine.pt/assets/html/ManualPrecosHabitacaoCidades20.html" target="_blank" rel="noopener">INE_HOUSING_02</a>
+  <h3><a href="https://geohab.ine.pt/assets/html/ManualPrecosHabitacaoCidades20.html" target="_blank" rel="noopener">INE city housing prices methodology</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://geohab.ine.pt/assets/html/ManualPrecosHabitacaoCidades20.html" target="_blank" rel="noopener">https://geohab.ine.pt/assets/html/ManualPrecosHabitacaoCidades20.html</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LISH_01">
+  <a class="source-badge" href="https://www.flatio.com/rent/apartment/124170-lisbon" target="_blank" rel="noopener">LISH_01</a>
+  <h3><a href="https://www.flatio.com/rent/apartment/124170-lisbon" target="_blank" rel="noopener">Flatio T2 Campo de Ourique</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.flatio.com/rent/apartment/124170-lisbon" target="_blank" rel="noopener">https://www.flatio.com/rent/apartment/124170-lisbon</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LISH_02">
+  <a class="source-badge" href="https://www.flatio.com/rent/apartment/94649-lissabon" target="_blank" rel="noopener">LISH_02</a>
+  <h3><a href="https://www.flatio.com/rent/apartment/94649-lissabon" target="_blank" rel="noopener">Flatio 2BR Chic Bright Campo de Ourique</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.flatio.com/rent/apartment/94649-lissabon" target="_blank" rel="noopener">https://www.flatio.com/rent/apartment/94649-lissabon</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LISH_03">
+  <a class="source-badge" href="https://www.flatio.pt/oferta/apartamento/119746-lisboa" target="_blank" rel="noopener">LISH_03</a>
+  <h3><a href="https://www.flatio.pt/oferta/apartamento/119746-lisboa" target="_blank" rel="noopener">Flatio Encanto do Tejo T2</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.flatio.pt/oferta/apartamento/119746-lisboa" target="_blank" rel="noopener">https://www.flatio.pt/oferta/apartamento/119746-lisboa</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LISH_04">
+  <a class="source-badge" href="https://www.flatio.pt/oferta/apartamento/lisboa-100565" target="_blank" rel="noopener">LISH_04</a>
+  <h3><a href="https://www.flatio.pt/oferta/apartamento/lisboa-100565" target="_blank" rel="noopener">Flatio Parque das Nacoes apartment</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.flatio.pt/oferta/apartamento/lisboa-100565" target="_blank" rel="noopener">https://www.flatio.pt/oferta/apartamento/lisboa-100565</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LISH_05">
+  <a class="source-badge" href="https://lisbonservicedapartments.com/apartments/benformoso/two-bedroom-apartment/" target="_blank" rel="noopener">LISH_05</a>
+  <h3><a href="https://lisbonservicedapartments.com/apartments/benformoso/two-bedroom-apartment/" target="_blank" rel="noopener">Lisbon Serviced Apartments Benformoso 2BR</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://lisbonservicedapartments.com/apartments/benformoso/two-bedroom-apartment/" target="_blank" rel="noopener">https://lisbonservicedapartments.com/apartments/benformoso/two-bedroom-apartment/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LISH_06">
+  <a class="source-badge" href="https://lisbonservicedapartments.com/apartments/principe-real/two-bedroom-apartment-t2/" target="_blank" rel="noopener">LISH_06</a>
+  <h3><a href="https://lisbonservicedapartments.com/apartments/principe-real/two-bedroom-apartment-t2/" target="_blank" rel="noopener">Lisbon Serviced Apartments Principe Real 2BR</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://lisbonservicedapartments.com/apartments/principe-real/two-bedroom-apartment-t2/" target="_blank" rel="noopener">https://lisbonservicedapartments.com/apartments/principe-real/two-bedroom-apartment-t2/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LISH_07">
+  <a class="source-badge" href="https://www.vrbo.com/en-gb/p11954414" target="_blank" rel="noopener">LISH_07</a>
+  <h3><a href="https://www.vrbo.com/en-gb/p11954414" target="_blank" rel="noopener">Vrbo Prime Lisbon Living 2BR</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.vrbo.com/en-gb/p11954414" target="_blank" rel="noopener">https://www.vrbo.com/en-gb/p11954414</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LISH_08">
+  <a class="source-badge" href="https://www.vrbo.com/en-gb/holiday-rentals/portugal/lisbon-district/lisbon/campo-de-ourique" target="_blank" rel="noopener">LISH_08</a>
+  <h3><a href="https://www.vrbo.com/en-gb/holiday-rentals/portugal/lisbon-district/lisbon/campo-de-ourique" target="_blank" rel="noopener">Vrbo Campo de Ourique rentals</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.vrbo.com/en-gb/holiday-rentals/portugal/lisbon-district/lisbon/campo-de-ourique" target="_blank" rel="noopener">https://www.vrbo.com/en-gb/holiday-rentals/portugal/lisbon-district/lisbon/campo-de-ourique</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LISH_09">
+  <a class="source-badge" href="https://www.vrbo.com/en-gb/p10685425" target="_blank" rel="noopener">LISH_09</a>
+  <h3><a href="https://www.vrbo.com/en-gb/p10685425" target="_blank" rel="noopener">Vrbo Borja111 family apartment</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>review</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.vrbo.com/en-gb/p10685425" target="_blank" rel="noopener">https://www.vrbo.com/en-gb/p10685425</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LISH_10">
+  <a class="source-badge" href="https://ru.flatio.com/arendnaya-plata/ploskiy/lisbon-115870" target="_blank" rel="noopener">LISH_10</a>
+  <h3><a href="https://ru.flatio.com/arendnaya-plata/ploskiy/lisbon-115870" target="_blank" rel="noopener">Flatio Campolide 2BR</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>housing</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://ru.flatio.com/arendnaya-plata/ploskiy/lisbon-115870" target="_blank" rel="noopener">https://ru.flatio.com/arendnaya-plata/ploskiy/lisbon-115870</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_AIR_01">
+  <a class="source-badge" href="https://www.lisboa.pt/en/themes/environment/environmental-quality/air" target="_blank" rel="noopener">LIS_AIR_01</a>
+  <h3><a href="https://www.lisboa.pt/en/themes/environment/environmental-quality/air" target="_blank" rel="noopener">Lisbon city air monitoring</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>air_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.lisboa.pt/en/themes/environment/environmental-quality/air" target="_blank" rel="noopener">https://www.lisboa.pt/en/themes/environment/environmental-quality/air</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_AIR_02">
+  <a class="source-badge" href="https://www.iqair.com/us/portugal/lisbon/lisbon" target="_blank" rel="noopener">LIS_AIR_02</a>
+  <h3><a href="https://www.iqair.com/us/portugal/lisbon/lisbon" target="_blank" rel="noopener">IQAir Lisbon AQI</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>air_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.iqair.com/us/portugal/lisbon/lisbon" target="_blank" rel="noopener">https://www.iqair.com/us/portugal/lisbon/lisbon</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_CHILD_01">
+  <a class="source-badge" href="https://ma.to/venue/sandcastle.pt" target="_blank" rel="noopener">LIS_CHILD_01</a>
+  <h3><a href="https://ma.to/venue/sandcastle.pt" target="_blank" rel="noopener">SandCastle indoor playground cafe</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>indoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://ma.to/venue/sandcastle.pt" target="_blank" rel="noopener">https://ma.to/venue/sandcastle.pt</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_CHILD_02">
+  <a class="source-badge" href="https://www.wooki.pt/en/playgroupsensoriais" target="_blank" rel="noopener">LIS_CHILD_02</a>
+  <h3><a href="https://www.wooki.pt/en/playgroupsensoriais" target="_blank" rel="noopener">Wooki sensory playgroups</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>structured_activity</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.wooki.pt/en/playgroupsensoriais" target="_blank" rel="noopener">https://www.wooki.pt/en/playgroupsensoriais</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_CHILD_04">
+  <a class="source-badge" href="https://www.visitlisboa.com/en/places/jardim-da-estrela" target="_blank" rel="noopener">LIS_CHILD_04</a>
+  <h3><a href="https://www.visitlisboa.com/en/places/jardim-da-estrela" target="_blank" rel="noopener">Jardim da Estrela Visit Lisboa</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.visitlisboa.com/en/places/jardim-da-estrela" target="_blank" rel="noopener">https://www.visitlisboa.com/en/places/jardim-da-estrela</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_CHILD_05">
+  <a class="source-badge" href="https://www.letsgobaby.pt/blogs/visit-portugal-with-kids/kids-playgrounds-in-lisbon" target="_blank" rel="noopener">LIS_CHILD_05</a>
+  <h3><a href="https://www.letsgobaby.pt/blogs/visit-portugal-with-kids/kids-playgrounds-in-lisbon" target="_blank" rel="noopener">Lisbon playgrounds Lets Go Baby</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>blog</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.letsgobaby.pt/blogs/visit-portugal-with-kids/kids-playgrounds-in-lisbon" target="_blank" rel="noopener">https://www.letsgobaby.pt/blogs/visit-portugal-with-kids/kids-playgrounds-in-lisbon</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_CHILD_06">
+  <a class="source-badge" href="https://teddy-playground.com/" target="_blank" rel="noopener">LIS_CHILD_06</a>
+  <h3><a href="https://teddy-playground.com/" target="_blank" rel="noopener">Teddy and Friends playground</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>indoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://teddy-playground.com/" target="_blank" rel="noopener">https://teddy-playground.com/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_CHILD_07">
+  <a class="source-badge" href="https://oceanario.pt/en/families/" target="_blank" rel="noopener">LIS_CHILD_07</a>
+  <h3><a href="https://oceanario.pt/en/families/" target="_blank" rel="noopener">Oceanario family programs</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>culture_indoor</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://oceanario.pt/en/families/" target="_blank" rel="noopener">https://oceanario.pt/en/families/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_CHILD_08">
+  <a class="source-badge" href="https://www.reddit.com/r/PortugalExpats/comments/1p5qfrk/do_kids_play_outside_in_portugal/" target="_blank" rel="noopener">LIS_CHILD_08</a>
+  <h3><a href="https://www.reddit.com/r/PortugalExpats/comments/1p5qfrk/do_kids_play_outside_in_portugal/" target="_blank" rel="noopener">Reddit kids play outside Portugal</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/PortugalExpats/comments/1p5qfrk/do_kids_play_outside_in_portugal/" target="_blank" rel="noopener">https://www.reddit.com/r/PortugalExpats/comments/1p5qfrk/do_kids_play_outside_in_portugal/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_CHILD_09">
+  <a class="source-badge" href="https://www.reddit.com/r/LisbonPortugalTravel/comments/1tbipy4/lisbon_with_an_active_25_year_old/" target="_blank" rel="noopener">LIS_CHILD_09</a>
+  <h3><a href="https://www.reddit.com/r/LisbonPortugalTravel/comments/1tbipy4/lisbon_with_an_active_25_year_old/" target="_blank" rel="noopener">Reddit Lisbon active 2.5 year old</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>mobility_stroller</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/LisbonPortugalTravel/comments/1tbipy4/lisbon_with_an_active_25_year_old/" target="_blank" rel="noopener">https://www.reddit.com/r/LisbonPortugalTravel/comments/1tbipy4/lisbon_with_an_active_25_year_old/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_CLIM_01">
+  <a class="source-badge" href="https://weatherspark.com/y/32022/Average-Weather-in-Lisbon-Portugal-Year-Round" target="_blank" rel="noopener">LIS_CLIM_01</a>
+  <h3><a href="https://weatherspark.com/y/32022/Average-Weather-in-Lisbon-Portugal-Year-Round" target="_blank" rel="noopener">WeatherSpark Lisbon climate</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>climate</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://weatherspark.com/y/32022/Average-Weather-in-Lisbon-Portugal-Year-Round" target="_blank" rel="noopener">https://weatherspark.com/y/32022/Average-Weather-in-Lisbon-Portugal-Year-Round</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_COMM_04">
+  <a class="source-badge" href="https://www.reddit.com/r/Travelwithkids/comments/1r28tvh/best_area_in_lisbon_with_kids/" target="_blank" rel="noopener">LIS_COMM_04</a>
+  <h3><a href="https://www.reddit.com/r/Travelwithkids/comments/1r28tvh/best_area_in_lisbon_with_kids/" target="_blank" rel="noopener">Reddit Best area with kids Lisbon</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>neighborhood</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/Travelwithkids/comments/1r28tvh/best_area_in_lisbon_with_kids/" target="_blank" rel="noopener">https://www.reddit.com/r/Travelwithkids/comments/1r28tvh/best_area_in_lisbon_with_kids/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_COMM_05">
+  <a class="source-badge" href="https://www.reddit.com/r/LisbonPortugalTravel/comments/1rhf2va/toddler_vs_lisbon_recommendations_for_getting/" target="_blank" rel="noopener">LIS_COMM_05</a>
+  <h3><a href="https://www.reddit.com/r/LisbonPortugalTravel/comments/1rhf2va/toddler_vs_lisbon_recommendations_for_getting/" target="_blank" rel="noopener">Reddit Toddler vs Lisbon</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>stroller</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/LisbonPortugalTravel/comments/1rhf2va/toddler_vs_lisbon_recommendations_for_getting/" target="_blank" rel="noopener">https://www.reddit.com/r/LisbonPortugalTravel/comments/1rhf2va/toddler_vs_lisbon_recommendations_for_getting/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_COMM_07">
+  <a class="source-badge" href="https://www.reddit.com/r/LisbonPortugalTravel/comments/1tbipy4/lisbon_with_an_active_25_year_old/" target="_blank" rel="noopener">LIS_COMM_07</a>
+  <h3><a href="https://www.reddit.com/r/LisbonPortugalTravel/comments/1tbipy4/lisbon_with_an_active_25_year_old/" target="_blank" rel="noopener">Reddit Lisbon active 2.5 year old playground comments</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>playground_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/LisbonPortugalTravel/comments/1tbipy4/lisbon_with_an_active_25_year_old/" target="_blank" rel="noopener">https://www.reddit.com/r/LisbonPortugalTravel/comments/1tbipy4/lisbon_with_an_active_25_year_old/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_COMM_08">
+  <a class="source-badge" href="https://www.reddit.com/r/PortugalExpats/comments/1p5qfrk/do_kids_play_outside_in_portugal/" target="_blank" rel="noopener">LIS_COMM_08</a>
+  <h3><a href="https://www.reddit.com/r/PortugalExpats/comments/1p5qfrk/do_kids_play_outside_in_portugal/" target="_blank" rel="noopener">Reddit kids play outside Portugal playground comments</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>playground_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/PortugalExpats/comments/1p5qfrk/do_kids_play_outside_in_portugal/" target="_blank" rel="noopener">https://www.reddit.com/r/PortugalExpats/comments/1p5qfrk/do_kids_play_outside_in_portugal/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_MOB_01">
+  <a class="source-badge" href="https://www.lisboa.pt/en/temas/mobilidade/modos-de-transportes/public-transportation" target="_blank" rel="noopener">LIS_MOB_01</a>
+  <h3><a href="https://www.lisboa.pt/en/temas/mobilidade/modos-de-transportes/public-transportation" target="_blank" rel="noopener">Lisbon public transportation</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>mobility</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.lisboa.pt/en/temas/mobilidade/modos-de-transportes/public-transportation" target="_blank" rel="noopener">https://www.lisboa.pt/en/temas/mobilidade/modos-de-transportes/public-transportation</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_MOB_02">
+  <a class="source-badge" href="https://www.metrolisboa.pt/en/travel/using-the-metro/" target="_blank" rel="noopener">LIS_MOB_02</a>
+  <h3><a href="https://www.metrolisboa.pt/en/travel/using-the-metro/" target="_blank" rel="noopener">Lisbon Metro children stroller</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>mobility</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.metrolisboa.pt/en/travel/using-the-metro/" target="_blank" rel="noopener">https://www.metrolisboa.pt/en/travel/using-the-metro/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_MOB_03">
+  <a class="source-badge" href="https://bolt.eu/en-pt/support/articles/360011878240/" target="_blank" rel="noopener">LIS_MOB_03</a>
+  <h3><a href="https://bolt.eu/en-pt/support/articles/360011878240/" target="_blank" rel="noopener">Bolt travelling with children</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>car_seat</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://bolt.eu/en-pt/support/articles/360011878240/" target="_blank" rel="noopener">https://bolt.eu/en-pt/support/articles/360011878240/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_MOB_04">
+  <a class="source-badge" href="https://help.uber.com/pt-PT/driving-and-delivering/article/car-seats?nodeId=84a8a020-53d8-4968-849b-b2c2ca167b2b" target="_blank" rel="noopener">LIS_MOB_04</a>
+  <h3><a href="https://help.uber.com/pt-PT/driving-and-delivering/article/car-seats?nodeId=84a8a020-53d8-4968-849b-b2c2ca167b2b" target="_blank" rel="noopener">Uber car seats</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>car_seat</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://help.uber.com/pt-PT/driving-and-delivering/article/car-seats?nodeId=84a8a020-53d8-4968-849b-b2c2ca167b2b" target="_blank" rel="noopener">https://help.uber.com/pt-PT/driving-and-delivering/article/car-seats?nodeId=84a8a020-53d8-4968-849b-b2c2ca167b2b</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_MOB_05">
+  <a class="source-badge" href="https://www.reddit.com/r/LisbonPortugalTravel/comments/1mb2186/lisbon_with_young_toddler/" target="_blank" rel="noopener">LIS_MOB_05</a>
+  <h3><a href="https://www.reddit.com/r/LisbonPortugalTravel/comments/1mb2186/lisbon_with_young_toddler/" target="_blank" rel="noopener">Reddit Lisbon toddler car seat</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>community</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>stroller_car_seat</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.reddit.com/r/LisbonPortugalTravel/comments/1mb2186/lisbon_with_young_toddler/" target="_blank" rel="noopener">https://www.reddit.com/r/LisbonPortugalTravel/comments/1mb2186/lisbon_with_young_toddler/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_OPEN_DATA_01">
+  <a class="source-badge" href="https://lisboaaberta.cm-lisboa.pt/index.php/en" target="_blank" rel="noopener">LIS_OPEN_DATA_01</a>
+  <h3><a href="https://lisboaaberta.cm-lisboa.pt/index.php/en" target="_blank" rel="noopener">Lisboa Aberta open data portal</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>open_data</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://lisboaaberta.cm-lisboa.pt/index.php/en" target="_blank" rel="noopener">https://lisboaaberta.cm-lisboa.pt/index.php/en</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_PARKS_01">
+  <a class="source-badge" href="https://www.lisboa.pt/en/themes/environment/ecological-structure/gardens-and-parks" target="_blank" rel="noopener">LIS_PARKS_01</a>
+  <h3><a href="https://www.lisboa.pt/en/themes/environment/ecological-structure/gardens-and-parks" target="_blank" rel="noopener">Lisbon gardens and parks</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.lisboa.pt/en/themes/environment/ecological-structure/gardens-and-parks" target="_blank" rel="noopener">https://www.lisboa.pt/en/themes/environment/ecological-structure/gardens-and-parks</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_PARKS_02">
+  <a class="source-badge" href="https://www.lisboa.pt/en/themes/environment/ecological-structure/horticultural-parks" target="_blank" rel="noopener">LIS_PARKS_02</a>
+  <h3><a href="https://www.lisboa.pt/en/themes/environment/ecological-structure/horticultural-parks" target="_blank" rel="noopener">Lisbon horticultural parks and child facilities context</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>outdoor_play</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.lisboa.pt/en/themes/environment/ecological-structure/horticultural-parks" target="_blank" rel="noopener">https://www.lisboa.pt/en/themes/environment/ecological-structure/horticultural-parks</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_TRANSIT_OPEN_01">
+  <a class="source-badge" href="https://docs.carrismetropolitana.pt/open-data" target="_blank" rel="noopener">LIS_TRANSIT_OPEN_01</a>
+  <h3><a href="https://docs.carrismetropolitana.pt/open-data" target="_blank" rel="noopener">Carris Metropolitana open data</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>mobility</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://docs.carrismetropolitana.pt/open-data" target="_blank" rel="noopener">https://docs.carrismetropolitana.pt/open-data</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-LIS_VISA_01">
+  <a class="source-badge" href="https://www2.gov.pt/en/servicos/pedir-um-visto-schengen-de-curta-duracao" target="_blank" rel="noopener">LIS_VISA_01</a>
+  <h3><a href="https://www2.gov.pt/en/servicos/pedir-um-visto-schengen-de-curta-duracao" target="_blank" rel="noopener">Portugal short stay Schengen visa</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>lisbon</dd></div>
+    <div><dt>维度</dt><dd>visa</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www2.gov.pt/en/servicos/pedir-um-visto-schengen-de-curta-duracao" target="_blank" rel="noopener">https://www2.gov.pt/en/servicos/pedir-um-visto-schengen-de-curta-duracao</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-OPEN_METEO_AIR_01">
+  <a class="source-badge" href="https://air-quality-api.open-meteo.com/v1/air-quality" target="_blank" rel="noopener">OPEN_METEO_AIR_01</a>
+  <h3><a href="https://air-quality-api.open-meteo.com/v1/air-quality" target="_blank" rel="noopener">Open-Meteo air quality archive 2023-2025</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>both</dd></div>
+    <div><dt>维度</dt><dd>air_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://air-quality-api.open-meteo.com/v1/air-quality" target="_blank" rel="noopener">https://air-quality-api.open-meteo.com/v1/air-quality</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-OPEN_METEO_CLIMATE_01">
+  <a class="source-badge" href="https://archive-api.open-meteo.com/v1/archive" target="_blank" rel="noopener">OPEN_METEO_CLIMATE_01</a>
+  <h3><a href="https://archive-api.open-meteo.com/v1/archive" target="_blank" rel="noopener">Open-Meteo historical weather archive 2023-2025</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>platform</dd></div>
+    <div><dt>城市</dt><dd>both</dd></div>
+    <div><dt>维度</dt><dd>climate</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://archive-api.open-meteo.com/v1/archive" target="_blank" rel="noopener">https://archive-api.open-meteo.com/v1/archive</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-OSM_POI_01">
+  <a class="source-badge" href="https://overpass-api.de/" target="_blank" rel="noopener">OSM_POI_01</a>
+  <h3><a href="https://overpass-api.de/" target="_blank" rel="noopener">OpenStreetMap Overpass candidate-area POI extract</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>map</dd></div>
+    <div><dt>城市</dt><dd>both</dd></div>
+    <div><dt>维度</dt><dd>poi_counts</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://overpass-api.de/" target="_blank" rel="noopener">https://overpass-api.de/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-TH_AIR4THAI_01">
+  <a class="source-badge" href="https://air4thai.pcd.go.th/" target="_blank" rel="noopener">TH_AIR4THAI_01</a>
+  <h3><a href="https://air4thai.pcd.go.th/" target="_blank" rel="noopener">Air4Thai official air quality portal</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>air_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://air4thai.pcd.go.th/" target="_blank" rel="noopener">https://air4thai.pcd.go.th/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-TH_DTV_01">
+  <a class="source-badge" href="https://budapest.thaiembassy.org/en/publicservice/destination-thailand-visa-dtv" target="_blank" rel="noopener">TH_DTV_01</a>
+  <h3><a href="https://budapest.thaiembassy.org/en/publicservice/destination-thailand-visa-dtv" target="_blank" rel="noopener">DTV official embassy page</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>remote_work</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://budapest.thaiembassy.org/en/publicservice/destination-thailand-visa-dtv" target="_blank" rel="noopener">https://budapest.thaiembassy.org/en/publicservice/destination-thailand-visa-dtv</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-TH_PCD_NORTH_01">
+  <a class="source-badge" href="https://epo01.pcd.go.th/th/news/detail/173102" target="_blank" rel="noopener">TH_PCD_NORTH_01</a>
+  <h3><a href="https://epo01.pcd.go.th/th/news/detail/173102" target="_blank" rel="noopener">Environmental and Pollution Control Office 1 northern PM2.5 updates</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>air_quality</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://epo01.pcd.go.th/th/news/detail/173102" target="_blank" rel="noopener">https://epo01.pcd.go.th/th/news/detail/173102</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-TH_TMD_CLIMATE_01">
+  <a class="source-badge" href="https://tmd.go.th/en/climate/climateSubpage" target="_blank" rel="noopener">TH_TMD_CLIMATE_01</a>
+  <h3><a href="https://tmd.go.th/en/climate/climateSubpage" target="_blank" rel="noopener">Thai Meteorological Department climate pages</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>climate</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://tmd.go.th/en/climate/climateSubpage" target="_blank" rel="noopener">https://tmd.go.th/en/climate/climateSubpage</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-TH_TMD_MONTHLY_01">
+  <a class="source-badge" href="https://www.tmd.go.th/en/climate/summarymonthly" target="_blank" rel="noopener">TH_TMD_MONTHLY_01</a>
+  <h3><a href="https://www.tmd.go.th/en/climate/summarymonthly" target="_blank" rel="noopener">Thai Meteorological Department monthly weather summary</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>climate</dd></div>
+    <div><dt>访问</dt><dd>2026-05-28</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.tmd.go.th/en/climate/summarymonthly" target="_blank" rel="noopener">https://www.tmd.go.th/en/climate/summarymonthly</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-TH_VISA_01">
+  <a class="source-badge" href="https://thaievisa.go.th/" target="_blank" rel="noopener">TH_VISA_01</a>
+  <h3><a href="https://thaievisa.go.th/" target="_blank" rel="noopener">Thailand official e-Visa portal</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>visa</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://thaievisa.go.th/" target="_blank" rel="noopener">https://thaievisa.go.th/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-TH_VISA_02">
+  <a class="source-badge" href="https://thaiconsulatevancouver.ca/tourist-visa/" target="_blank" rel="noopener">TH_VISA_02</a>
+  <h3><a href="https://thaiconsulatevancouver.ca/tourist-visa/" target="_blank" rel="noopener">Royal Thai Consulate Vancouver tourist visa</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>visa</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://thaiconsulatevancouver.ca/tourist-visa/" target="_blank" rel="noopener">https://thaiconsulatevancouver.ca/tourist-visa/</a></dd></div>
+  </dl>
+</article>
+
+
+<article class="source-card" id="src-TH_VISA_03">
+  <a class="source-badge" href="https://www.tatnews.org/2026/05/thai-cabinet-approves-revision-of-60-day-visa-exemption-scheme-pending-royal-gazette-publication/" target="_blank" rel="noopener">TH_VISA_03</a>
+  <h3><a href="https://www.tatnews.org/2026/05/thai-cabinet-approves-revision-of-60-day-visa-exemption-scheme-pending-royal-gazette-publication/" target="_blank" rel="noopener">TAT visa exemption revision pending</a></h3>
+  <dl>
+    <div><dt>类型</dt><dd>official</dd></div>
+    <div><dt>城市</dt><dd>chiang_mai</dd></div>
+    <div><dt>维度</dt><dd>visa</dd></div>
+    <div><dt>访问</dt><dd>2026-05-27</dd></div>
+    <div><dt>URL</dt><dd><a href="https://www.tatnews.org/2026/05/thai-cabinet-approves-revision-of-60-day-visa-exemption-scheme-pending-royal-gazette-publication/" target="_blank" rel="noopener">https://www.tatnews.org/2026/05/thai-cabinet-approves-revision-of-60-day-visa-exemption-scheme-pending-royal-gazette-publication/</a></dd></div>
+  </dl>
+</article>
+</div>
+</main>
+<footer>
+  调研日期 2026-05-28 · 143 个来源（85 LIS / 58 CMI）· 14 个证据 markdown · <a href="https://github.com/AaronZ021/family-slowtravel-lisbon-chiangmai">GitHub</a>
+</footer>
+</body>
+</html>
