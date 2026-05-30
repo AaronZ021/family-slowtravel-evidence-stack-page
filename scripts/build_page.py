@@ -48,6 +48,7 @@ a:hover { text-decoration:underline; }
 .compact p { margin:0 0 8px; }
 .wide-table { overflow-x:auto; margin:16px 0; }
 .wide-table table { min-width:1120px; margin:0; }
+.matrix-table table { min-width:1500px; }
 .cell-label { margin:10px 0 4px; font-size:12px; font-weight:750; color:var(--muted); }
 .cell-block p { margin:0 0 8px; }
 .meta-row { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 10px; }
@@ -191,6 +192,39 @@ def render_area_assessment(sources, used):
     return "".join(out)
 
 
+def render_area_function_matrix(sources, used):
+    rows = optional_csv(ROOT / "reports/area_function_matrix.csv")
+    if not rows:
+        return ""
+    area_headers = [
+        ("lisbon_campo", "里斯本 · Campo"),
+        ("lisbon_estrela", "里斯本 · Estrela/Lapa"),
+        ("lisbon_parque", "里斯本 · Parque"),
+        ("lisbon_belem", "里斯本 · Belém/Restelo"),
+        ("cm_nimman", "清迈 · Nimman/Santitham"),
+        ("cm_oldcity", "清迈 · Old City edge"),
+        ("cm_hangdong", "清迈 · Hang Dong"),
+        ("cm_sansai", "清迈 · San Sai"),
+    ]
+    out = [
+        '<h2 id="area-function-matrix">片区 x 生活功能矩阵</h2>',
+        '<p class="page-sub">这张表按同一个生活功能横向比较 8 个片区。它不是城市总评分，而是回答：如果只看这个功能，哪些片区的证据更强，哪些片区缺口更大。</p>',
+        '<div class="wide-table matrix-table"><table><thead><tr><th>生活功能</th>',
+    ]
+    for _, label in area_headers:
+        out.append(f"<th>{esc(label)}</th>")
+    out.append("<th>证据 / 缺口</th></tr></thead><tbody>")
+    for r in rows:
+        out.append("<tr>")
+        out.append(f"<td class=\"dimension\">{esc(r['function'])}</td>")
+        for key, _ in area_headers:
+            out.append(f"<td>{esc(r[key])}</td>")
+        out.append(f"<td><div class=\"meta-row\"><span class=\"meta-pill\">置信度：{esc(r['confidence'])}</span></div>{badges(r['evidence_ids'], sources, used)}<div class=\"cell-label\">缺口</div><p>{esc(r['gap'])}</p></td>")
+        out.append("</tr>")
+    out.append("</tbody></table></div>")
+    return "".join(out)
+
+
 def main():
     sources = source_map()
     rows = read_csv(ROOT / "reports/indicator_evidence_stack.csv")
@@ -201,10 +235,11 @@ def main():
     body = [
         '<h1 class="page-title">指标证据栈</h1>',
         '<p class="page-sub">本页先拆清楚空间口径：哪些维度只能按城市整体判断，哪些必须落到 Campo、Estrela、Nimman、Hang Dong 等候选片区。后面的证据栈只作为下钻材料。</p>',
-        '<nav class="toc"><a href="#spatial-framework">空间评估口径</a><a href="#area-radius">片区生活半径</a><a href="#evidence-stack">维度证据栈</a><a href="#sources">来源索引</a></nav>',
+        '<nav class="toc"><a href="#spatial-framework">空间评估口径</a><a href="#area-function-matrix">片区功能矩阵</a><a href="#area-radius">片区生活半径</a><a href="#evidence-stack">维度证据栈</a><a href="#sources">来源索引</a></nav>',
         '<div class="callout"><strong>读法</strong>：这里不做城市总评。城市级维度回答“能不能去、什么季节有硬约束”；片区级维度回答“住在哪里，日常是否真的跑得起来”。</div>',
     ]
     body.append(render_spatial_framework(sources, used))
+    body.append(render_area_function_matrix(sources, used))
     body.append(render_area_assessment(sources, used))
     body.append('<h2 id="evidence-stack">维度证据栈</h2>')
     for layer, dims in by_layer.items():
